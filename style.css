@@ -11,7 +11,7 @@ font-family: 'Grenze', serif;
 
 h1 {
 	font-size: 75px;	
-	color: gold;
+	color: white;
 	font-family: 'Grenze', serif;
 }
 
@@ -67,6 +67,10 @@ li {
 	margin: 20px;
 	color: gold;
 	padding: 60px;
+}
+
+p {
+	font-size: 25px;
 }
 
 
