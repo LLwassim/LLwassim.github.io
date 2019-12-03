@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/main.css",
+    "main.js": "/main.94e81e0cffa6a172b0ac.bundle.js",
+    "main.css.map": "/main.css.map",
+    "main.js.map": "/main.94e81e0cffa6a172b0ac.bundle.js.map",
+    "runtime~main.js": "/runtime~main.94e81e0cffa6a172b0ac.bundle.js",
+    "runtime~main.js.map": "/runtime~main.94e81e0cffa6a172b0ac.bundle.js.map",
+    "vendors~main.js": "/vendors~main.94e81e0cffa6a172b0ac.bundle.js",
+    "vendors~main.js.map": "/vendors~main.94e81e0cffa6a172b0ac.bundle.js.map",
+    "iframe.html": "/iframe.html",
+    "precache-manifest.cc0ad41ecc2428c898e46a9e05b94b31.js": "/precache-manifest.cc0ad41ecc2428c898e46a9e05b94b31.js",
+    "service-worker.js": "/service-worker.js",
+    "static/media/add.svg": "/static/media/add.70235270.svg",
+    "static/media/beats.png": "/static/media/beats.46ac6c9e.png",
+    "static/media/cart_2.svg": "/static/media/cart_2.64e74253.svg",
+    "static/media/checkmark.svg": "/static/media/checkmark.0ae49bb8.svg",
+    "static/media/hearts.svg": "/static/media/hearts.cce5b434.svg",
+    "static/media/mac.png": "/static/media/mac.88620912.png",
+    "static/media/minus.svg": "/static/media/minus.a4bc1b3b.svg",
+    "static/media/star.svg": "/static/media/star.f8ce72af.svg",
+    "static/media/white-cart_2.svg": "/static/media/white-cart_2.98013573.svg",
+    "static/media/white-hearts.svg": "/static/media/white-hearts.bcf238ce.svg"
+  },
+  "entrypoints": [
+    "runtime~main.94e81e0cffa6a172b0ac.bundle.js",
+    "vendors~main.94e81e0cffa6a172b0ac.bundle.js",
+    "main.css",
+    "main.94e81e0cffa6a172b0ac.bundle.js"
+  ]
+}
