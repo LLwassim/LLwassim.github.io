@@ -10,7 +10,7 @@ font-family: 'Grenze', serif;
 }
 
 h1 {
-	font-size: 75px;	
+	font-size: 75px;
 	color: white;
 	font-family: 'Grenze', serif;
 }
@@ -52,7 +52,8 @@ text-align: center;
 
 
 .topbox {
-text-align: center;
+text-align: top;
+color: red;
 }
 
 .split {
