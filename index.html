@@ -250,27 +250,58 @@ The front-end Tesla clone aims to provide a visually appealing and seamless user
 
       <!-- Footer -->
       <footer id="footer">
-        <section>
-          <form method="post" action="send_email.php">
+           <section>
+        <form id="myForm">
             <div class="fields">
-              <div class="field">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" />
-              </div>
-              <div class="field">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" />
-              </div>
-              <div class="field">
-                <label for="message">Message</label>
-                <textarea name="message" id="message" rows="3"></textarea>
-              </div>
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" />
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" />
+                </div>
+                <div class="field">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="3"></textarea>
+                </div>
             </div>
             <ul class="actions">
-              <li><input type="submit" value="Send Message" /></li>
+                <li><input type="submit" value="Send Message" /></li>
             </ul>
-          </form>
-        </section>
+        </form>
+    </section>
+
+    <div id="result"></div>
+<script>
+        const form = document.getElementById("myForm");
+        const resultDiv = document.getElementById("result");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            // Display the submitted data
+            resultDiv.innerHTML = `
+                <h2>Form Submission Result</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Message:</strong> ${message}</p>
+
+                <p><strong>Currently Working on Adding Gmail API, </p>
+                 <p><strong> please click on the link to email over here </p>
+                   ---------------------->
+
+                   <p>(or down below if on mobile)</p>
+            `;
+
+            // You can add additional logic here, such as sending data to a server or performing other actions.
+        });
+    </script>
+
         <section class="split contact">
           <section class="alt">
             <h3>Address</h3>
