@@ -2717,6 +2717,7 @@ input[type="radio"]:focus + label:before {
   display: block;
   margin: 2.5rem 0;
   width: 100%;
+  height: 300px;
 }
 
 .image.fit:first-child {
@@ -2725,6 +2726,7 @@ input[type="radio"]:focus + label:before {
 
 .image.fit img {
   width: 100%;
+  height: 100%;
 }
 
 .image.main {
@@ -3338,7 +3340,7 @@ table.alt tbody tr td {
   background-color: #212931;
   background-image: url("../../images/overlay.png"),
     linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url("../../images/WassimLkorchy.jpeg");
+    url("../../images/bg.jpg");
   background-size: auto, auto, 100% auto;
   background-position: center, center, top center;
   background-repeat: repeat, no-repeat, no-repeat;
