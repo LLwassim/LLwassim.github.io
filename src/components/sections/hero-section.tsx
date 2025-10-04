@@ -183,13 +183,15 @@ export function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <button
-        onClick={scrollToWork}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 p-2 animate-bounce z-10"
-        aria-label="Scroll to work section"
-      >
-        <ArrowDown className="w-6 h-6 text-muted-foreground" />
-      </button>
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center z-10">
+        <button
+          onClick={scrollToWork}
+          className="p-2 animate-bounce hover:scale-110 transition-transform"
+          aria-label="Scroll to work section"
+        >
+          <ArrowDown className="w-6 h-6 text-muted-foreground" />
+        </button>
+      </div>
 
       {/* Initialize hero animation */}
       <HeroSequence />
