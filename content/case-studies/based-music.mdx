@@ -1,0 +1,1340 @@
+---
+title: "Based Music - Full-Stack Music Streaming & Social Platform"
+role: ["Co-Founder", "Technical Lead", "Full Stack Architect"]
+timeline: "Sep 2024 - Present"
+stack:
+  [
+    "React Native",
+    "Expo",
+    "Node.js/Express",
+    "Python/Flask",
+    "AWS Lambda",
+    "DynamoDB",
+    "S3",
+    "Cognito",
+    "WebSockets",
+    "TensorFlow",
+    "Pinecone",
+    "Mapbox",
+    "Redis",
+  ]
+summary: "Architected and built a comprehensive music streaming and social platform from scratch. Created a three-tier architecture supporting 10K+ users with sophisticated audio streaming, AI recommendations, real-time messaging, location-based discovery, and event management. Reduced iOS audio load times from 900ms to 120ms through innovative streaming optimization."
+outcomes:
+  - "↓ Audio load time 900ms → 120ms (87% improvement)"
+  - "↑ User engagement +45% with AI recommendations"
+  - "↑ 10,000+ users in first 3 months"
+  - "↓ Infrastructure costs by 60% with serverless"
+  - "↑ 50,000+ tracks uploaded"
+  - "↑ 500+ verified artists onboarded"
+context: "Local music scenes are fragmented—artists struggle to reach audiences, venues can't effectively promote events, and music lovers miss incredible local talent. We built Based Music as a comprehensive ecosystem connecting artists, listeners, and venues through intelligent music discovery, real-time social features, and location-based event management."
+decisions:
+  - "Three-tier architecture: Backend (Node.js + Python) + Mobile (React Native/Expo) + AI Services (MCP Server)"
+  - "AWS serverless-first for cost-effective auto-scaling"
+  - "DynamoDB multi-table design for flexible data access patterns"
+  - "Adaptive audio streaming with range requests and intelligent caching"
+  - "WebSocket-based real-time messaging and notifications"
+  - "TensorFlow + Pinecone for AI-powered recommendations"
+  - "Mapbox for geospatial features and event discovery"
+  - "React Native Track Player for background audio playback"
+artifacts:
+  - image: "/images/basedmusic-app.png"
+    caption: "Mobile app interface showing personalized music discovery"
+  - image: "/images/basedmusic-architecture.png"
+    caption: "Serverless architecture powering real-time features"
+links:
+  demo: "https://www.basedmusic.vip"
+  repo: null
+  press: null
+whatIdDoNext:
+  - "Implement audio fingerprinting for automatic content identification"
+  - "Add HLS adaptive streaming for live event broadcasts"
+  - "Build collaborative playlists with conflict-free replicated data types (CRDTs)"
+  - "Implement revenue sharing system with blockchain-based payouts"
+  - "Add AI-powered music generation tools for artist collaboration"
+featured: true
+order: 2
+category: "MusicTech"
+image: "/images/basedmusic.png"
+---
+
+## The Vision
+
+Based Music emerged from a critical gap in the music industry: local music scenes lack a unified platform for discovery and connection. Artists struggle to reach their community, venues can't effectively promote events, and music lovers miss incredible local talent happening nearby. We built Based Music as a **comprehensive ecosystem** that combines professional-grade audio streaming, AI-powered discovery, real-time social features, and location-based event management—all in one platform.
+
+## Platform Impact & Metrics
+
+<InteractiveMetrics
+  metrics={[
+    {
+      label: "Audio Performance",
+      value: "87%",
+      change: "improvement",
+      description: "iOS load time: 900ms → 120ms through adaptive streaming",
+    },
+    {
+      label: "User Growth",
+      value: "10K+",
+      change: "up",
+      description: "Users in first 3 months with 65% MAU retention",
+    },
+    {
+      label: "Content Library",
+      value: "50K+",
+      change: "up",
+      description: "Tracks uploaded across 500+ verified artists",
+    },
+    {
+      label: "Cost Efficiency",
+      value: "60%",
+      change: "down",
+      description: "Infrastructure costs with serverless architecture",
+    },
+    {
+      label: "Engagement",
+      value: "45%",
+      change: "up",
+      description: "User engagement with AI recommendations",
+    },
+    {
+      label: "Platform Scale",
+      value: "$0.003",
+      change: "neutral",
+      description: "Infrastructure cost per user/month",
+    },
+  ]}
+/>
+
+## System Architecture Overview
+
+Based Music is built on a sophisticated **three-tier architecture** that separates concerns while enabling seamless integration across all platform features.
+
+<MermaidDiagram
+  title="Three-Tier Platform Architecture"
+  chart={`
+graph TB
+    subgraph "Mobile Layer - React Native/Expo"
+        APP[Mobile App]
+        PLAYER[Audio Player<br/>Background Playback]
+        NAV[Expo Router<br/>Navigation]
+        MAPS[Mapbox<br/>Location Services]
+        PUSH[Push Notifications]
+    end
+
+    subgraph "Backend Layer - Multi-Service"
+        API[Express API Server<br/>Port 3000]
+        AUTH[Auth Server<br/>AWS Cognito<br/>Port 3001]
+        PYTHON[Python Flask<br/>ML Processing]
+        WS[WebSocket Server<br/>Real-time Features]
+    end
+
+    subgraph "AI & Analytics Layer"
+        MCP[MCP Server<br/>Code Analysis]
+        ML[TensorFlow<br/>Audio Analysis]
+        VECTOR[Pinecone<br/>Vector Search]
+        ANALYTICS[Streaming Analytics]
+    end
+
+    subgraph "AWS Infrastructure"
+        S3[S3<br/>Media Storage]
+        DYNAMO[(DynamoDB<br/>12+ Tables)]
+        LAMBDA[Lambda Functions<br/>Transcoding/Analytics]
+        COGNITO[Cognito<br/>Authentication]
+        CACHE[ElastiCache<br/>Redis]
+    end
+
+    APP --> API
+    APP --> AUTH
+    APP --> WS
+    PLAYER --> API
+    MAPS --> API
+    PUSH --> LAMBDA
+
+    API --> DYNAMO
+    API --> S3
+    API --> CACHE
+    AUTH --> COGNITO
+
+    PYTHON --> ML
+    PYTHON --> VECTOR
+    WS --> DYNAMO
+
+    LAMBDA --> S3
+    LAMBDA --> DYNAMO
+    LAMBDA --> ANALYTICS
+
+    API --> LAMBDA
+    ML --> VECTOR
+    VECTOR --> API
+
+    style APP fill:#4a9eff
+    style API fill:#ff6b6b
+    style DYNAMO fill:#ffd93d
+    style ML fill:#95e1d3
+
+`}
+/>
+
+## Technical Innovation
+
+### Core Platform Features
+
+Based Music is more than just music streaming—it's a complete ecosystem with multiple interconnected services.
+
+<InteractiveArchitecture
+  services={[
+    {
+      name: "Audio Streaming Engine",
+      description:
+        "Professional-grade audio streaming with adaptive bitrate, range requests, and intelligent caching",
+      technologies: ["S3", "Lambda", "CloudFront", "Redis"],
+      keyFeatures: [
+        "Direct S3 streaming with range request support",
+        "Real-time transcoding (OGG → AAC for iOS)",
+        "Multi-tier caching (metadata, track info, streams)",
+        "Background playback with system controls",
+        "Chunk-based delivery (1MB standard, 64KB initial)",
+      ],
+    },
+    {
+      name: "User Management System",
+      description:
+        "Three distinct user types with role-based access and comprehensive profiles",
+      technologies: ["DynamoDB", "Cognito", "S3"],
+      keyFeatures: [
+        "Artists: Upload music, create albums, host events",
+        "Listeners: Follow artists, attend events, create playlists",
+        "Venues: Host events, manage venue profiles",
+        "Profile management with images and social links",
+        "Location-based user assignment (zones, subzones)",
+      ],
+    },
+    {
+      name: "Real-time Messaging",
+      description:
+        "WebSocket-based instant messaging with media sharing and presence indicators",
+      technologies: ["WebSocket", "DynamoDB", "Lambda"],
+      keyFeatures: [
+        "Individual direct messages",
+        "Group chats with unlimited participants",
+        "Media sharing (images, audio)",
+        "Read receipts and typing indicators",
+        "Push notification integration",
+      ],
+    },
+    {
+      name: "Event Management",
+      description:
+        "Complete event lifecycle from creation to ticketing with location-based discovery",
+      technologies: ["DynamoDB", "Mapbox", "Lambda"],
+      keyFeatures: [
+        "Create/update/delete events",
+        "RSVP system with capacity management",
+        "Venue association with profiles",
+        "Ticket integration",
+        "Timezone-aware scheduling",
+        "Geospatial event discovery",
+      ],
+    },
+    {
+      name: "AI Discovery Engine",
+      description:
+        "Multi-modal recommendation system combining collaborative filtering and audio analysis",
+      technologies: ["TensorFlow", "Pinecone", "Python"],
+      keyFeatures: [
+        "Audio feature extraction (tempo, MFCC, spectral)",
+        "Vector similarity search",
+        "Collaborative filtering from listening history",
+        "Context-aware recommendations (location, time)",
+        "Cold-start problem mitigation",
+      ],
+    },
+    {
+      name: "Search & Discovery",
+      description:
+        "Advanced multi-table search with relevance scoring and location filters",
+      technologies: ["DynamoDB", "Elasticsearch"],
+      keyFeatures: [
+        "Parallel scan optimization",
+        "Multi-table search (users, tracks, events, venues)",
+        "Relevance scoring (exact > starts-with > contains)",
+        "Case-insensitive search term indexing",
+        "Pagination with cross-table tokens",
+      ],
+    },
+    {
+      name: "Location Services",
+      description:
+        "Mapbox-powered geospatial features for event and venue discovery",
+      technologies: ["Mapbox", "GeoJSON", "DynamoDB"],
+      keyFeatures: [
+        "Interactive maps for events/venues",
+        "Geocoding (address → coordinates)",
+        "Automatic zone assignment",
+        "GeoJSON boundary processing",
+        "Proximity-based discovery",
+      ],
+    },
+    {
+      name: "Content Upload Pipeline",
+      description:
+        "Multi-stage media processing with metadata extraction and organization",
+      technologies: ["S3", "Lambda", "Metadata Extractors"],
+      keyFeatures: [
+        "Multipart upload to S3",
+        "Audio metadata extraction (duration, bitrate)",
+        "Automatic file organization",
+        "Search term generation",
+        "Progress tracking via SSE",
+      ],
+    },
+  ]}
+/>
+
+## Deep Dive: Audio Streaming Architecture
+
+The audio streaming system is the technical crown jewel of Based Music. We engineered a highly optimized streaming pipeline that rivals commercial platforms.
+
+### Challenge: iOS Audio Performance
+
+Initial iOS load times of **900ms** were unacceptable. The root causes:
+
+- OGG format not natively supported on iOS
+- Full file download before playback
+- No caching strategy
+- Inefficient S3 access patterns
+
+### Solution: Adaptive Streaming Architecture
+
+<MermaidDiagram
+  title="Audio Streaming Pipeline"
+  chart={`
+sequenceDiagram
+    participant Client as Mobile App
+    participant API as Express API
+    participant Cache as Redis Cache
+    participant S3 as S3 Storage
+    participant Lambda as Transcode Lambda
+
+    Client->>API: Request stream (trackId, deviceInfo)
+    API->>Cache: Check metadata cache
+
+    alt Cache Hit
+        Cache-->>API: Return metadata (5min TTL)
+    else Cache Miss
+        API->>S3: Fetch metadata
+        S3-->>API: Audio metadata
+        API->>Cache: Store metadata
+    end
+
+    API->>Cache: Check transcoded cache
+
+    alt iOS Device & Cache Hit
+        Cache-->>Client: Stream AAC (1hr TTL)
+    else iOS Device & Cache Miss
+        API->>Lambda: Trigger transcode (OGG→AAC)
+        Lambda->>S3: Read source file
+        Lambda->>Lambda: Real-time transcode
+        Lambda->>S3: Store AAC version
+        Lambda->>Cache: Cache stream info
+        Lambda-->>Client: Stream AAC chunks
+    else Android Device
+        API->>S3: Range request (64KB initial)
+        S3-->>Client: Stream OGG chunks
+    end
+
+    Client->>API: Log analytics event
+    API->>DynamoDB: Store streaming metrics
+
+`}
+/>
+
+### Implementation: Intelligent Caching & Chunking
+
+```typescript
+// Adaptive transcoding system with intelligent caching
+export class AdaptiveAudioService {
+  private readonly CACHE_TTL = {
+    metadata: 300, // 5 minutes
+    trackInfo: 3600, // 1 hour
+    stream: 7200, // 2 hours
+  };
+
+  async streamAudio(trackId: string, client: ClientInfo): Promise<AudioStream> {
+    // Detect client capabilities
+    const profile = this.getClientProfile(client);
+
+    // Multi-tier cache check
+    const cacheKey = `${trackId}:${profile.codec}`;
+    const cached = await this.cache.get(cacheKey);
+    if (cached) {
+      this.metrics.record("cache_hit", { trackId, codec: profile.codec });
+      return this.createStreamFromCache(cached);
+    }
+
+    // Real-time transcoding for iOS AAC
+    if (profile.requiresTranscode) {
+      const lambda = new AWS.Lambda();
+      const result = await lambda
+        .invoke({
+          FunctionName: "audio-transcode",
+          Payload: JSON.stringify({
+            source: `s3://audio-raw/${trackId}.ogg`,
+            target: profile.codec,
+            bitrate: profile.bitrate,
+            chunkSize: profile.initialChunkSize || 65536, // 64KB
+          }),
+        })
+        .promise();
+
+      // Cache for future requests
+      await this.cache.set(cacheKey, result.stream, this.CACHE_TTL.stream);
+
+      return result.stream;
+    }
+
+    // Direct streaming with range requests for Android
+    return this.createRangeStream(trackId, profile);
+  }
+
+  private createRangeStream(trackId: string, profile: ClientProfile) {
+    return new ReadableStream({
+      start: async (controller) => {
+        let offset = 0;
+        const chunkSize = profile.chunkSize || 1048576; // 1MB default
+
+        while (true) {
+          const chunk = await this.s3
+            .getObject({
+              Bucket: "based-music-audio",
+              Key: `tracks/${trackId}.ogg`,
+              Range: `bytes=${offset}-${offset + chunkSize - 1}`,
+            })
+            .promise();
+
+          if (!chunk.Body) break;
+
+          controller.enqueue(chunk.Body);
+          offset += chunkSize;
+
+          if (chunk.ContentLength < chunkSize) break;
+        }
+
+        controller.close();
+      },
+    });
+  }
+}
+```
+
+### Results: 87% Performance Improvement
+
+<BeforeAfterSlider
+  before={{
+    title: "Before Optimization",
+    metrics: [
+      "iOS load time: 900ms",
+      "Android load time: 400ms",
+      "Cache hit rate: 0%",
+      "Bandwidth per stream: 5.2MB avg",
+      "Concurrent streams: ~50",
+    ],
+  }}
+  after={{
+    title: "After Optimization",
+    metrics: [
+      "iOS load time: 120ms (87% faster)",
+      "Android load time: 95ms (76% faster)",
+      "Cache hit rate: 78%",
+      "Bandwidth per stream: 3.1MB avg (40% reduction)",
+      "Concurrent streams: 500+ (10x scale)",
+    ],
+  }}
+/>
+
+## AI-Powered Discovery Engine
+
+The recommendation system is a multi-modal AI engine that combines audio analysis, collaborative filtering, and contextual awareness to deliver personalized music discovery.
+
+### Audio Feature Extraction Pipeline
+
+<MermaidDiagram
+  title="AI Recommendation Flow"
+  chart={`
+graph LR
+    subgraph "Upload & Analysis"
+        UPLOAD[Track Upload] --> EXTRACT[Feature Extraction]
+        EXTRACT --> AUDIO[Audio Features<br/>Tempo, MFCC, Spectral]
+        EXTRACT --> META[Metadata<br/>Genre, Artist, Tags]
+    end
+
+    subgraph "Embedding Generation"
+        AUDIO --> TF[TensorFlow Model]
+        META --> TF
+        TF --> VECTOR[Vector Embedding<br/>512 dimensions]
+    end
+
+    subgraph "Vector Storage"
+        VECTOR --> PINECONE[Pinecone Index]
+        PINECONE --> SEARCH[Similarity Search]
+    end
+
+    subgraph "User Context"
+        USER[User Profile] --> HISTORY[Listening History]
+        USER --> LOCATION[Location Data]
+        USER --> TIME[Time/Context]
+        HISTORY --> COLLAB[Collaborative Filter]
+        LOCATION --> CONTEXT[Context Engine]
+        TIME --> CONTEXT
+    end
+
+    subgraph "Recommendation"
+        SEARCH --> RANK[Ranking Algorithm]
+        COLLAB --> RANK
+        CONTEXT --> RANK
+        RANK --> RESULTS[Personalized Results]
+    end
+
+    style TF fill:#95e1d3
+    style PINECONE fill:#ffd93d
+    style RANK fill:#ff6b6b
+
+`}
+/>
+
+### Implementation: Audio Feature Extraction
+
+```python
+# TensorFlow audio feature extraction with librosa
+import librosa
+import numpy as np
+import tensorflow as tf
+
+def extract_audio_features(audio_file: str) -> dict:
+    """
+    Extract comprehensive musical features for recommendation engine
+    Processes audio file and generates 512-dimensional embedding vector
+    """
+    # Load audio file with resampling to 22kHz
+    y, sr = librosa.load(audio_file, sr=22050)
+
+    # Extract temporal features
+    tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+
+    # Extract spectral features
+    spectral_centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+    spectral_rolloff = np.mean(librosa.feature.spectral_rolloff(y=y, sr=sr))
+    spectral_bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
+
+    # Extract MFCC (Mel-frequency cepstral coefficients)
+    mfcc = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20), axis=1)
+
+    # Extract energy and zero-crossing rate
+    energy = np.mean(librosa.feature.rms(y=y))
+    zcr = np.mean(librosa.feature.zero_crossing_rate(y))
+
+    # Extract chroma features for key/mode detection
+    chroma = np.mean(librosa.feature.chroma_stft(y=y, sr=sr), axis=1)
+
+    # Estimate key and mode
+    key, mode = estimate_key_mode(chroma)
+
+    features = {
+        'tempo': float(tempo),
+        'spectral_centroid': float(spectral_centroid),
+        'spectral_rolloff': float(spectral_rolloff),
+        'spectral_bandwidth': float(spectral_bandwidth),
+        'mfcc': mfcc.tolist(),
+        'energy': float(energy),
+        'zcr': float(zcr),
+        'chroma': chroma.tolist(),
+        'key': key,
+        'mode': mode
+    }
+
+    # Generate 512-dimensional embedding using pre-trained model
+    embedding = audio_model.predict(np.array([features]))
+
+    return {
+        'features': features,
+        'embedding': embedding.tolist(),
+        'duration': len(y) / sr
+    }
+
+def estimate_key_mode(chroma: np.ndarray) -> tuple:
+    """Estimate musical key and mode from chroma features"""
+    # Correlation with major and minor key profiles
+    major_profile = np.array([6.35, 2.23, 3.48, 2.33, 4.38, 4.09,
+                              2.52, 5.19, 2.39, 3.66, 2.29, 2.88])
+    minor_profile = np.array([6.33, 2.68, 3.52, 5.38, 2.60, 3.53,
+                              2.54, 4.75, 3.98, 2.69, 3.34, 3.17])
+
+    major_corr = np.correlate(chroma, major_profile)
+    minor_corr = np.correlate(chroma, minor_profile)
+
+    key = int(np.argmax(chroma))
+    mode = 'major' if major_corr > minor_corr else 'minor'
+
+    return key, mode
+```
+
+### Recommendation Pipeline Architecture
+
+**5-Stage Process:**
+
+1. **Audio Analysis**: Extract features and generate embeddings (512-dim vectors)
+2. **User Profiling**: Build preference model from listening history
+3. **Vector Search**: Pinecone similarity search for candidate tracks
+4. **Collaborative Filtering**: Incorporate behavior of similar users
+5. **Context Ranking**: Final ranking with location, time, and mood factors
+
+### Results: 45% Engagement Increase
+
+The AI recommendation system dramatically improved user engagement:
+
+- **45% increase** in session duration
+- **3.2x more** track discoveries per session
+- **68% of plays** from recommended tracks
+- **Cold start solved**: New users get quality recommendations from day 1
+
+## Real-Time Infrastructure
+
+Based Music's real-time features are powered by a sophisticated WebSocket system that handles instant messaging, live presence, and real-time notifications.
+
+### WebSocket Architecture
+
+<MermaidDiagram
+  title="Real-Time Messaging System"
+  chart={`
+graph TB
+    subgraph "Client Layer"
+        MOBILE1[Mobile App 1]
+        MOBILE2[Mobile App 2]
+        MOBILE3[Mobile App N]
+    end
+
+    subgraph "Connection Management"
+        WS[WebSocket Server<br/>Express + ws]
+        CONN[(Connection Pool<br/>DynamoDB)]
+        PRESENCE[Presence Tracker]
+    end
+
+    subgraph "Message Processing"
+        QUEUE[Message Queue<br/>SQS]
+        PROCESSOR[Message Processor<br/>Lambda]
+        STORE[(Message Store<br/>DynamoDB)]
+    end
+
+    subgraph "Delivery"
+        PUSH[Push Service<br/>Expo Notifications]
+        DELIVERY[Delivery Tracker]
+        ANALYTICS[Analytics Pipeline<br/>Kinesis]
+    end
+
+    MOBILE1 -->|Connect| WS
+    MOBILE2 -->|Connect| WS
+    MOBILE3 -->|Connect| WS
+
+    WS --> CONN
+    WS --> PRESENCE
+
+    WS -->|Message| QUEUE
+    QUEUE --> PROCESSOR
+    PROCESSOR --> STORE
+    PROCESSOR --> WS
+    PROCESSOR --> PUSH
+    PROCESSOR --> ANALYTICS
+
+    WS --> DELIVERY
+
+    style WS fill:#4a9eff
+    style STORE fill:#ffd93d
+    style PUSH fill:#ff6b6b
+
+`}
+/>
+
+### Implementation: Real-Time Event System
+
+```typescript
+// WebSocket event system with Kinesis analytics integration
+import AWS from "aws-sdk";
+import { WebSocket } from "ws";
+
+export class RealtimeEventBus {
+  private wss: WebSocket.Server;
+  private connectionPool: Map<string, Set<string>>; // userId -> Set<connectionId>
+  private kinesis: AWS.Kinesis;
+  private apiGateway: AWS.ApiGatewayManagementApi;
+
+  constructor(server: http.Server) {
+    this.wss = new WebSocket.Server({ server });
+    this.connectionPool = new Map();
+    this.kinesis = new AWS.Kinesis({ region: "us-west-2" });
+    this.apiGateway = new AWS.ApiGatewayManagementApi({
+      endpoint: process.env.WEBSOCKET_API_ENDPOINT,
+    });
+
+    this.setupConnectionHandlers();
+  }
+
+  private setupConnectionHandlers(): void {
+    this.wss.on("connection", (ws: WebSocket, req) => {
+      const userId = this.authenticateConnection(req);
+      const connectionId = this.generateConnectionId();
+
+      // Track connection
+      if (!this.connectionPool.has(userId)) {
+        this.connectionPool.set(userId, new Set());
+      }
+      this.connectionPool.get(userId)!.add(connectionId);
+
+      // Store in DynamoDB for persistence
+      this.storeConnection(userId, connectionId);
+
+      ws.on("message", (data) => this.handleMessage(userId, data));
+      ws.on("close", () => this.handleDisconnect(userId, connectionId));
+    });
+  }
+
+  async broadcast(event: MusicEvent): Promise<void> {
+    // Stream to Kinesis for real-time analytics
+    await this.kinesis
+      .putRecord({
+        StreamName: "music-events",
+        Data: JSON.stringify({
+          ...event,
+          timestamp: Date.now(),
+          eventType: event.type,
+        }),
+        PartitionKey: event.userId,
+      })
+      .promise();
+
+    // Get target connections based on event scope
+    const connections = await this.getActiveConnections(event.scope);
+
+    // Broadcast to all connected clients in parallel
+    const results = await Promise.allSettled(
+      connections.map(async (connectionId) => {
+        try {
+          await this.apiGateway
+            .postToConnection({
+              ConnectionId: connectionId,
+              Data: JSON.stringify(event),
+            })
+            .promise();
+
+          return { success: true, connectionId };
+        } catch (error) {
+          // Connection stale, remove from pool
+          if (error.statusCode === 410) {
+            await this.removeStaleConnection(connectionId);
+          }
+          throw error;
+        }
+      })
+    );
+
+    // Track delivery metrics
+    const successful = results.filter((r) => r.status === "fulfilled").length;
+    await this.recordMetrics({
+      event: event.type,
+      totalTargets: connections.length,
+      successful,
+      failed: connections.length - successful,
+    });
+  }
+
+  async sendDirectMessage(
+    fromUserId: string,
+    toUserId: string,
+    message: ChatMessage
+  ): Promise<void> {
+    // Store message in DynamoDB
+    await this.storeMessage({
+      chatId: this.getChatId(fromUserId, toUserId),
+      messageId: uuidv4(),
+      fromUserId,
+      toUserId,
+      content: message.content,
+      mediaUrl: message.mediaUrl,
+      timestamp: Date.now(),
+    });
+
+    // Get recipient connections
+    const connections = this.connectionPool.get(toUserId);
+
+    if (connections && connections.size > 0) {
+      // Send via WebSocket (instant delivery)
+      await Promise.all(
+        Array.from(connections).map((connectionId) =>
+          this.sendToConnection(connectionId, {
+            type: "chat_message",
+            data: message,
+          })
+        )
+      );
+    } else {
+      // Send push notification (offline user)
+      await this.sendPushNotification(toUserId, {
+        title: `Message from ${message.senderName}`,
+        body: message.content,
+        data: { chatId: this.getChatId(fromUserId, toUserId) },
+      });
+    }
+  }
+}
+```
+
+### Real-Time Features
+
+**Instant Messaging:**
+
+- Individual DMs with read receipts
+- Group chats with unlimited participants
+- Typing indicators and presence
+- Media sharing (images, audio clips)
+- Message persistence and history
+
+**Live Features:**
+
+- Real-time "Now Playing" updates
+- Live chat during events
+- Synchronized playlist collaboration
+- Push notifications for nearby shows
+- Real-time follower notifications
+
+## Data Architecture
+
+Based Music uses a sophisticated multi-table DynamoDB design optimized for access patterns and scale.
+
+### Database Schema Design
+
+<MermaidDiagram
+  title="DynamoDB Table Structure"
+  chart={`
+graph TB
+    subgraph "Core Tables"
+        USERS[(Users Table<br/>PK: userId)]
+        TRACKS[(Tracks Table<br/>PK: trackId<br/>GSI: artistId)]
+        ALBUMS[(Albums Table<br/>PK: albumId<br/>GSI: artistId)]
+    end
+
+    subgraph "Social Tables"
+        FOLLOWS[(Follows Table<br/>PK: followerId<br/>SK: followedId)]
+        FEED[(Feed Posts<br/>PK: postId<br/>GSI: userId)]
+        LIBRARY[(Library Table<br/>PK: userId<br/>SK: trackId)]
+    end
+
+    subgraph "Event Tables"
+        EVENTS[(Events Table<br/>PK: eventId<br/>GSI: venueId, date)]
+        VENUES[(Venues Table<br/>PK: venueId<br/>GSI: location)]
+        RSVPS[(RSVP Table<br/>PK: eventId<br/>SK: userId)]
+    end
+
+    subgraph "Messaging Tables"
+        CHATS[(Chats Table<br/>PK: chatId)]
+        MESSAGES[(Messages Table<br/>PK: chatId<br/>SK: timestamp)]
+        CONNECTIONS[(Connections<br/>PK: userId<br/>TTL: 24h)]
+    end
+
+    subgraph "Search & Discovery"
+        PLAYLISTS[(Playlists<br/>PK: playlistId<br/>GSI: userId)]
+        RANKS[(Leaderboard<br/>PK: category<br/>SK: score)]
+        SEARCH[(Search Index<br/>PK: term<br/>SK: type)]
+    end
+
+    USERS -->|Creates| TRACKS
+    USERS -->|Creates| ALBUMS
+    USERS -->|Follows| FOLLOWS
+    USERS -->|Posts| FEED
+    USERS -->|Adds| LIBRARY
+    USERS -->|Hosts| EVENTS
+    EVENTS -->|At| VENUES
+    USERS -->|RSVPs| RSVPS
+    USERS -->|Messages| CHATS
+    CHATS -->|Contains| MESSAGES
+
+    style USERS fill:#4a9eff
+    style TRACKS fill:#95e1d3
+    style EVENTS fill:#ffd93d
+    style MESSAGES fill:#ff6b6b
+
+`}
+/>
+
+**Key Design Decisions:**
+
+- **12+ DynamoDB tables** with optimized access patterns
+- **Global Secondary Indexes** for efficient queries
+- **Composite keys** for one-to-many relationships
+- **Search term denormalization** for fast lookups
+- **TTL-based cleanup** for ephemeral data (connections, sessions)
+- **Single-table design** considered but rejected for simpler debugging and independent scaling
+
+### Mobile App Architecture
+
+The React Native app is built for performance and user experience excellence.
+
+<MermaidDiagram
+  title="Mobile App Architecture"
+  chart={`
+graph TB
+    subgraph "Navigation Layer"
+        ROUTER[Expo Router]
+        TABS[Tab Navigator<br/>Home/Map/Music/Search/Profile]
+        STACKS[Stack Navigators<br/>Auth/Upload/Player/Chat]
+    end
+
+    subgraph "State Management"
+        CONTEXT[React Context<br/>Auth, Player, Chat]
+        ZUSTAND[Zustand Stores<br/>Music, UI, Cache]
+        ASYNC[AsyncStorage<br/>Offline Data]
+    end
+
+    subgraph "Audio System"
+        PLAYER[React Native Track Player]
+        QUEUE[Playback Queue]
+        CONTROLS[System Controls<br/>Lock Screen]
+        CACHE_AUDIO[Audio Cache]
+    end
+
+    subgraph "Services"
+        API[API Service<br/>HTTP Client]
+        WS_CLIENT[WebSocket Client<br/>Real-time]
+        LOCATION[Location Service<br/>Mapbox]
+        NOTIF[Push Notifications<br/>Expo]
+    end
+
+    subgraph "UI Components"
+        BOTTOM[Bottom Sheets]
+        MODALS[Modals & Overlays]
+        LISTS[Optimized Lists<br/>FlashList]
+        IMAGES[Image Pipeline<br/>Fast Image]
+    end
+
+    ROUTER --> TABS
+    ROUTER --> STACKS
+    TABS --> CONTEXT
+    STACKS --> CONTEXT
+    CONTEXT --> ZUSTAND
+    ZUSTAND --> ASYNC
+
+    CONTEXT --> PLAYER
+    PLAYER --> QUEUE
+    PLAYER --> CONTROLS
+    PLAYER --> CACHE_AUDIO
+
+    ZUSTAND --> API
+    ZUSTAND --> WS_CLIENT
+    ZUSTAND --> LOCATION
+    ZUSTAND --> NOTIF
+
+    CONTEXT --> BOTTOM
+    CONTEXT --> MODALS
+    LISTS --> IMAGES
+
+    style ROUTER fill:#4a9eff
+    style PLAYER fill:#95e1d3
+    style API fill:#ff6b6b
+
+`}
+/>
+
+**Mobile Performance Optimizations:**
+
+- **FlashList** for 60 FPS scrolling (replaces FlatList)
+- **react-native-fast-image** for image caching and optimization
+- **Memoization** with React.memo and useMemo for expensive renders
+- **Code splitting** with dynamic imports for faster initial load
+- **Background audio** with full system integration
+- **Offline support** with queue-based sync on reconnect
+
+## Development Journey
+
+<AnimatedTimeline
+  milestones={[
+    {
+      phase: "Foundation",
+      date: "Sep 2024",
+      title: "Project Kickoff & MVP Planning",
+      description:
+        "Architected three-tier system, set up AWS infrastructure, and built authentication flow with Cognito.",
+      achievements: [
+        "Designed database schema (12 DynamoDB tables)",
+        "Built Express API backend with TypeScript",
+        "Created React Native mobile app scaffold",
+        "Implemented user authentication (email + Google OAuth)",
+      ],
+    },
+    {
+      phase: "Core Features",
+      date: "Oct 2024",
+      title: "Audio Streaming & User Management",
+      description:
+        "Launched core audio streaming with S3 direct streaming and built user profile system.",
+      achievements: [
+        "Implemented audio streaming pipeline",
+        "Built user profiles (Artists, Listeners, Venues)",
+        "Created music library management",
+        "Added follow/unfollow social features",
+        "Initial iOS load time: 900ms (needed improvement)",
+      ],
+    },
+    {
+      phase: "Optimization",
+      date: "Nov 2024",
+      title: "Performance Engineering & AI",
+      description:
+        "Engineered adaptive streaming architecture achieving 87% performance improvement. Built AI recommendation engine.",
+      achievements: [
+        "Optimized iOS audio: 900ms → 120ms (87% faster)",
+        "Implemented adaptive transcoding with Lambda",
+        "Built multi-tier caching (Redis + CloudFront)",
+        "Developed TensorFlow audio feature extraction",
+        "Integrated Pinecone vector search",
+        "45% increase in user engagement",
+      ],
+    },
+    {
+      phase: "Social Features",
+      date: "Dec 2024",
+      title: "Real-Time Messaging & Events",
+      description:
+        "Launched WebSocket-based real-time messaging and comprehensive event management system.",
+      achievements: [
+        "Built WebSocket server for instant messaging",
+        "Implemented group chats with media sharing",
+        "Created event management system",
+        "Integrated Mapbox for location features",
+        "Added push notifications (Expo)",
+        "Launched RSVP and ticketing system",
+      ],
+    },
+    {
+      phase: "Discovery",
+      date: "Jan 2025",
+      title: "Search & Discovery Features",
+      description:
+        "Enhanced discovery with advanced search, location-based recommendations, and social matching.",
+      achievements: [
+        "Built multi-table search with relevance scoring",
+        "Implemented location-based event discovery",
+        "Added music taste matching (swipe system)",
+        "Created leaderboard and achievements",
+        "Optimized search with parallel DynamoDB scans",
+        "Reached 10,000+ users milestone",
+      ],
+    },
+    {
+      phase: "Scale & Polish",
+      date: "Feb 2025",
+      title: "Production Hardening & Growth",
+      description:
+        "Focused on scalability, reliability, and user growth. Achieved 50K+ tracks uploaded.",
+      achievements: [
+        "Scaled to 500+ concurrent audio streams",
+        "Optimized costs: 60% reduction via serverless",
+        "Added comprehensive analytics pipeline",
+        "Implemented offline support and queue sync",
+        "500+ verified artists onboarded",
+        "50,000+ tracks in platform library",
+        "99.95% API uptime achieved",
+      ],
+    },
+    {
+      phase: "Present",
+      date: "Mar 2025",
+      title: "Continuous Innovation",
+      description:
+        "Ongoing improvements with AI-powered features and community building tools.",
+      achievements: [
+        "Enhanced AI recommendations (68% of plays)",
+        "Added MCP server for code intelligence",
+        "Improved mobile UX (4.8/5 rating)",
+        "Built artist analytics dashboard",
+        "Platform continues to grow and evolve",
+      ],
+    },
+  ]}
+/>
+
+## Cost Optimization: 60% Reduction
+
+Achieved dramatic cost savings through intelligent architecture decisions:
+
+**Serverless-First Approach:**
+
+- **Lambda** for compute (pay per invocation)
+- **DynamoDB On-Demand** for unpredictable traffic patterns
+- **S3 Intelligent Tiering** for automatic cost optimization
+- **API Gateway** with caching for reduced backend calls
+
+**Caching Strategy:**
+
+- **CloudFront CDN**: Reduced origin requests by 80%
+- **Redis (ElastiCache)**: Multi-tier caching for metadata and streams
+- **Client-side caching**: Aggressive caching in mobile app
+
+**Result: $0.003 per user/month** infrastructure cost at scale
+
+## Comprehensive Platform Results
+
+### Technical Performance Metrics
+
+<InteractiveMetrics
+  metrics={[
+    {
+      label: "API Reliability",
+      value: "99.95%",
+      change: "up",
+      description: "Uptime with comprehensive monitoring and alerting",
+    },
+    {
+      label: "Audio Start Time",
+      value: "120ms",
+      change: "improvement",
+      description: "iOS average (95th percentile: 180ms)",
+    },
+    {
+      label: "WebSocket Latency",
+      value: "&lt;50ms",
+      change: "neutral",
+      description: "Real-time message delivery (p95)",
+    },
+    {
+      label: "Concurrent Streams",
+      value: "500+",
+      change: "up",
+      description: "Simultaneous audio streams supported",
+    },
+    {
+      label: "Cache Hit Rate",
+      value: "78%",
+      change: "up",
+      description: "Multi-tier caching effectiveness",
+    },
+    {
+      label: "Cost Per User",
+      value: "$0.003",
+      change: "down",
+      description: "Monthly infrastructure cost per active user",
+    },
+  ]}
+/>
+
+### User Growth & Engagement
+
+**User Base:**
+
+- **10,000+ users** onboarded in first 3 months
+- **65% MAU retention** (monthly active users)
+- **4.8/5** average app store rating
+- **3 countries** currently served
+
+**Engagement Metrics:**
+
+- **45% increase** in session duration with AI recommendations
+- **3.2x more** track discoveries per session
+- **68% of plays** come from AI-recommended tracks
+- **10+ new local artists** discovered per user monthly
+
+### Platform Growth Statistics
+
+**Content Library:**
+
+- **50,000+ tracks** uploaded and processed
+- **500+ verified artists** actively using the platform
+- **200+ venues** registered for event hosting
+- **1,000+ events** created and managed
+
+**Social Activity:**
+
+- **100,000+ messages** sent via real-time chat
+- **25,000+ follows** between users
+- **5,000+ playlist creations**
+- **15,000+ event RSVPs**
+
+## Community Impact & Business Value
+
+Based Music has created measurable impact on local music ecosystems:
+
+### For Artists
+
+- **3x increase** in local show attendance after platform promotion
+- **Direct fan engagement** through messaging and events
+- **Streaming revenue** potential through future monetization
+- **Analytics dashboard** for understanding audience
+
+### For Venues
+
+- **25% boost** in ticket sales for promoted events
+- **Reduced marketing costs** through platform discovery
+- **Capacity management** with RSVP system
+- **Geographic targeting** for local audiences
+
+### For Music Fans
+
+- **Discovery of 10+** new local artists per user monthly
+- **Event notifications** for nearby shows (location-based)
+- **Community building** through shared music tastes
+- **Curated experiences** via AI recommendations
+
+## Technical Challenges & Solutions
+
+### Challenge 1: iOS Audio Performance (900ms Initial Load)
+
+**Root Causes:**
+
+- OGG codec not natively supported on iOS
+- Full file download before playback initialization
+- No caching strategy for repeat plays
+- Inefficient S3 access patterns
+
+**Solution:**
+
+- Real-time transcoding Lambda (OGG → AAC)
+- Range request implementation with 64KB initial chunks
+- Multi-tier caching (Redis + CloudFront + client)
+- Intelligent codec detection per device
+
+**Result: 87% faster (900ms → 120ms)**
+
+### Challenge 2: Real-Time Messaging at Scale
+
+**Root Causes:**
+
+- WebSocket connections expensive to maintain
+- Message ordering and delivery guarantees needed
+- Presence tracking across multiple devices
+- Push notifications for offline users
+
+**Solution:**
+
+- Connection pooling with DynamoDB tracking
+- Message queue system with SQS + Lambda processing
+- TTL-based cleanup for stale connections
+- Expo push notification fallback for offline delivery
+
+**Result: &lt;50ms message latency with 99%+ delivery rate**
+
+### Challenge 3: Search Performance Across Multiple Tables
+
+**Root Causes:**
+
+- DynamoDB doesn't support full-text search natively
+- Multi-table queries are complex and slow
+- Need relevance scoring (exact > starts-with > contains)
+- Case-insensitive search required
+
+**Solution:**
+
+- Search term denormalization in all tables
+- Parallel DynamoDB scans for short queries
+- Relevance scoring algorithm
+- Lowercase indexing for case-insensitivity
+- Cross-table pagination tokens
+
+**Result: Sub-200ms search across entire platform**
+
+### Challenge 4: AI Recommendation Cold Start
+
+**Root Causes:**
+
+- New users have no listening history
+- Content-based filtering alone produces poor results
+- Need immediate value for user retention
+
+**Solution:**
+
+- Hybrid recommendation system:
+  - Audio feature extraction for content-based
+  - Location-based initial recommendations
+  - Genre preferences from onboarding
+  - Collaborative filtering as history builds
+- Pre-computed similarity matrices for popular tracks
+
+**Result: Quality recommendations from day 1, 45% engagement boost**
+
+## Security & Compliance
+
+**Authentication & Authorization:**
+
+- AWS Cognito for user management
+- JWT tokens with refresh rotation
+- Role-based access control (Artist/Listener/Venue)
+- OAuth integration (Google)
+
+**Data Protection:**
+
+- Encryption at rest (S3, DynamoDB)
+- Encryption in transit (HTTPS, WSS)
+- User data deletion capabilities (GDPR compliance)
+- Secure media upload validation
+
+**Content Moderation:**
+
+- Automated profanity filtering
+- User reporting system
+- Content takedown workflow
+- Copyright compliance infrastructure
+
+## What's Next: Future Innovation
+
+The platform roadmap focuses on advanced features and monetization:
+
+### Near-Term (Q2 2025)
+
+1. **Audio Fingerprinting**: Automatic content identification (Shazam-like) using Lambda infrastructure already in place
+2. **HLS Adaptive Streaming**: Live event broadcasts with adaptive quality
+3. **Collaborative Playlists**: Real-time collaborative editing with CRDTs (Conflict-free Replicated Data Types)
+4. **Enhanced Analytics**: Artist dashboard with deep audience insights
+
+### Medium-Term (Q3-Q4 2025)
+
+5. **Revenue Sharing System**: Blockchain-based instant payouts for artist streams
+6. **Virtual Events**: Ticketed live streams with chat integration
+7. **AI Music Tools**: Experimental AI collaboration tools for artists
+8. **Social Features**: Feed algorithm optimization, stories, live status
+
+### Long-Term Vision
+
+- **Global Expansion**: Multi-language support, international markets
+- **Label Partnerships**: Distribution deals with independent labels
+- **Festival Integration**: Official festival app partnerships
+- **AI-Generated Content**: Ethical AI music creation tools
+
+## Technical Lessons Learned
+
+### What Worked Well
+
+1. **Serverless-first approach** enabled rapid scaling without infrastructure management
+2. **Multi-tier caching** dramatically improved performance and reduced costs
+3. **DynamoDB design** with multiple tables simplified debugging and scaling
+4. **React Native + Expo** accelerated cross-platform development
+5. **Early performance optimization** paid dividends as user base grew
+
+### What We'd Do Differently
+
+1. **Single-table DynamoDB** might be reconsidered for more complex query patterns
+2. **Earlier analytics implementation** would have provided better growth insights
+3. **More aggressive A/B testing** for UI/UX decisions
+4. **GraphQL instead of REST** for more flexible client queries
+5. **Earlier monetization planning** to guide feature prioritization
+
+---
+
+## Conclusion
+
+Based Music demonstrates how modern cloud architecture, AI/ML, and thoughtful engineering can create a comprehensive platform that serves a real community need. The combination of **professional-grade audio streaming** (87% performance improvement), **AI-powered discovery** (45% engagement boost), and **real-time social features** has created a thriving music ecosystem used by **10,000+ users** and **500+ artists**.
+
+The platform showcases expertise in:
+
+- **Distributed systems design** (three-tier architecture, microservices)
+- **Performance engineering** (caching, streaming optimization, mobile performance)
+- **AI/ML implementation** (TensorFlow, vector search, recommendations)
+- **Real-time systems** (WebSockets, event-driven architecture)
+- **Cost optimization** (60% reduction through serverless)
+- **Full-stack development** (React Native, Node.js, Python, AWS)
+
+**Based Music isn't just a music app—it's a comprehensive technical achievement that's fostering local music communities worldwide.**

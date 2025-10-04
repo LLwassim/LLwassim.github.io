@@ -1,17 +1,21 @@
-import { Hero } from "@/components/sections/Hero";
-import { ProjectGrid } from "@/components/sections/ProjectGrid";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { HeroSection } from "@/components/sections/hero-section";
+import { WorkGrid } from "@/components/sections/work-grid";
+import { SocialProof } from "@/components/sections/social-proof";
+import { PersonalNote } from "@/components/sections/personal-note";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <ProjectGrid />
+    <>
+      <SiteHeader />
+      <main>
+        <HeroSection />
+        <WorkGrid />
+        <SocialProof />
+        <PersonalNote />
       </main>
-      <Footer />
-    </div>
+      <SiteFooter />
+    </>
   );
 }

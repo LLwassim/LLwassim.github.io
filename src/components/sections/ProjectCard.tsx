@@ -27,15 +27,20 @@ export function ProjectCard({
   featured,
 }: ProjectCardProps) {
   return (
-    <Card className={featured ? "md:flex md:flex-row" : ""}>
+    <Card
+      className={`group glass hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-2 border-2 hover:border-primary/30 ${
+        featured ? "md:flex md:flex-row" : ""
+      }`}
+    >
       <div className={featured ? "md:w-1/2" : "w-full"}>
         <div className="relative aspect-video overflow-hidden">
           <Image
             src={image}
             alt={title}
             fill
-            className="object-cover transition-transform hover:scale-105"
+            className="object-cover transition-transform group-hover:scale-110 duration-500"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
       </div>
 
@@ -54,8 +59,13 @@ export function ProjectCard({
 
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Badge key={tag} variant="secondary">
+            {tags.map((tag, i) => (
+              <Badge
+                key={tag}
+                variant="secondary"
+                className="transition-all hover:scale-105 hover:bg-primary/20"
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
                 {tag}
               </Badge>
             ))}

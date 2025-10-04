@@ -10,9 +10,12 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 glass shadow-lg">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="font-bold text-xl">
+        <Link
+          href="/"
+          className="font-bold text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+        >
           {siteConfig.name}
         </Link>
 
@@ -39,7 +42,7 @@ export function Header() {
               href={siteConfig.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-all hover:scale-110"
             >
               <Github className="h-5 w-5" />
             </Link>
@@ -47,7 +50,7 @@ export function Header() {
               href={siteConfig.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-all hover:scale-110"
             >
               <Linkedin className="h-5 w-5" />
             </Link>

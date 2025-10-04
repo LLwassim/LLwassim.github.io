@@ -1,8 +1,9 @@
 export const siteConfig = {
   name: "Wassim LaCorchy",
-  title: "Wassim LaCorchy | Software Engineer Portfolio",
+  title:
+    "Wassim LaCorchy | Principal Software Engineer & AI Solutions Architect",
   description:
-    "Full-stack software engineer specializing in React, Node.js, AWS, and cloud architecture.",
+    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 6+ years experience in cloud infrastructure, microservices, and AI systems.",
   url: "https://llwassim.github.io",
   links: {
     github: "https://github.com/LLwassim",
@@ -11,13 +12,13 @@ export const siteConfig = {
   contact: {
     email: "wassimlacorchy@gmail.com",
     phone: "(571) 603-8538",
-    location: "Northern VA (DMV Area)",
+    location: "New York, NY 10016",
   },
 };
 
 export const mainNav = [
   {
-    title: "Projects",
+    title: "Home",
     href: "/",
   },
   {
