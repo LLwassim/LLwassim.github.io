@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
-
+//asd
 export function Footer() {
   return (
     <footer className="border-t bg-background">
