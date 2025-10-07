@@ -20,16 +20,18 @@ export function HeroSequence() {
   const { reducedMotion, canAnimate } = useMotion();
 
   useEffect(() => {
-    if (!canAnimate || reducedMotion || !containerRef.current) {
-      // Show content immediately if animations are disabled
-      if (containerRef.current) {
-        gsap.set(containerRef.current.querySelectorAll(".hero-element"), {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          clearProps: "all",
-        });
-      }
+    // Show content immediately if animations are disabled
+    const heroElements = document.querySelectorAll(
+      ".hero-element, .hero-photo, .hero-h1 .word"
+    );
+
+    if (!canAnimate || reducedMotion) {
+      gsap.set(heroElements, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        clearProps: "all",
+      });
       return;
     }
 
@@ -143,4 +145,3 @@ export function HeroSequence() {
     />
   );
 }
-

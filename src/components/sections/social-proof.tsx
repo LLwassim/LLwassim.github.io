@@ -45,8 +45,8 @@ const achievements = [
 
 export function SocialProof() {
   return (
-    <section className="py-20 border-t border-border/50">
-      <div className="container">
+    <section className="py-16 sm:py-20 lg:py-28 border-t border-border/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Companies */}
         <div className="text-center mb-16">
           <h3 className="text-2xl font-semibold mb-8 scroll-fade-in">
@@ -73,14 +73,14 @@ export function SocialProof() {
         </div>
 
         {/* Achievements */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-16">
           {achievements.map((achievement, index) => {
             const Icon = achievement.icon;
             return (
               <div
                 key={achievement.title}
-                className="glass rounded-xl p-6 hover:shadow-lg transition-all duration-300 scroll-rise"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="glass rounded-2xl p-6 hover:shadow-lg transition-all duration-300 scroll-rise"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div
                   className={cn(

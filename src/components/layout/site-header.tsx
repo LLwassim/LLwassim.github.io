@@ -27,21 +27,28 @@ export function SiteHeader() {
     setMounted(true);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 8);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "glass border-b border-border/50" : "bg-transparent"
+        isScrolled || isMobileMenuOpen
+          ? "bg-background/95 backdrop-blur-md border-b border-border supports-[backdrop-filter]:bg-background/80"
+          : "bg-transparent"
       )}
     >
-      <nav className="container mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
@@ -120,26 +127,26 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu with improved animation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass border-t border-border/50">
-          <div className="container mx-auto px-6 py-4">
+        <div className="md:hidden animate-in fade-in slide-in-from-top-2 duration-200 border-t border-border">
+          <nav className="container mx-auto px-4 py-3 space-y-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  "block py-2 text-sm font-medium transition-colors hover:text-primary",
+                  "block px-4 py-3 text-base font-medium rounded-xl transition-all duration-200",
                   pathname === item.href
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                    ? "bg-primary/10 text-primary"
+                    : "text-foreground hover:bg-muted"
                 )}
               >
                 {item.name}
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
       )}
     </header>

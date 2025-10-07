@@ -6,14 +6,14 @@ import { MagneticCTA } from "@/components/animations/magnetic-cta";
 
 export function PersonalNote() {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-background">
-      <div className="container">
+    <section className="py-16 sm:py-20 lg:py-28 bg-gradient-to-br from-primary/5 via-background to-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 scroll-rise">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Let's Build Something Amazing Together
           </h2>
 
-          <p className="text-lg text-muted-foreground mb-8 scroll-fade-in">
+          <p className="text-lg text-muted-foreground mb-6">
             I'm a Principal Software Engineer and AI Solutions Architect
             passionate about building products that make a real impact. Whether
             it's driving $36M+ in revenue at Lennar or creating the future of
@@ -21,19 +21,13 @@ export function PersonalNote() {
             business acumen to every project.
           </p>
 
-          <p
-            className="text-lg text-muted-foreground mb-8 scroll-fade-in"
-            style={{ animationDelay: "100ms" }}
-          >
+          <p className="text-lg text-muted-foreground mb-8">
             Currently based in New York, I'm always interested in discussing new
             opportunities, innovative projects, or just having a great
             conversation about technology and startups.
           </p>
 
-          <div
-            className="flex flex-wrap justify-center gap-4 scroll-fade-in"
-            style={{ animationDelay: "200ms" }}
-          >
+          <div className="flex flex-wrap justify-center gap-4">
             <MagneticCTA>
               <Link
                 href="/about"
@@ -70,4 +64,3 @@ export function PersonalNote() {
     </section>
   );
 }
-

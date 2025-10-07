@@ -5,11 +5,12 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { motion } from "./motion";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
 
   // Configure GSAP defaults
   gsap.config({
@@ -154,3 +155,6 @@ export const safeGsapSelect = (selector: string): Element[] => {
   if (typeof document === "undefined") return [];
   return gsap.utils.toArray(selector) as Element[];
 };
+
+// Re-export GSAP core and hooks for convenience
+export { gsap, useGSAP };

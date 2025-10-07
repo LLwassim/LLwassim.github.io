@@ -153,8 +153,133 @@ export function HeroBackground() {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0">
+      {/* Light mode: Creative wave and gradient streams design */}
+      <div className="absolute inset-0 dark:hidden">
+        {/* Animated waves at the bottom */}
+        <svg
+          className="absolute bottom-0 left-0 w-full h-64"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <motion.path
+            fill="url(#wave-gradient-1)"
+            fillOpacity="0.3"
+            d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            animate={{
+              d: [
+                "M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                "M0,128L48,117.3C96,107,192,85,288,90.7C384,96,480,128,576,144C672,160,768,160,864,138.7C960,117,1056,75,1152,69.3C1248,64,1344,96,1392,112L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                "M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+              ],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.path
+            fill="url(#wave-gradient-2)"
+            fillOpacity="0.25"
+            d="M0,160L48,144C96,128,192,96,288,96C384,96,480,128,576,133.3C672,139,768,117,864,117.3C960,117,1056,139,1152,154.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            animate={{
+              d: [
+                "M0,160L48,144C96,128,192,96,288,96C384,96,480,128,576,133.3C672,139,768,117,864,117.3C960,117,1056,139,1152,154.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                "M0,192L48,170.7C96,149,192,107,288,112C384,117,480,171,576,176C672,181,768,139,864,122.7C960,107,1056,117,1152,138.7C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                "M0,160L48,144C96,128,192,96,288,96C384,96,480,128,576,133.3C672,139,768,117,864,117.3C960,117,1056,139,1152,154.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+              ],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+          <defs>
+            <linearGradient
+              id="wave-gradient-1"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="50%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#ec4899" />
+            </linearGradient>
+            <linearGradient
+              id="wave-gradient-2"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#06b6d4" />
+              <stop offset="50%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#f59e0b" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Flowing gradient ribbons */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={`ribbon-${i}`}
+            className="absolute h-1 rounded-full"
+            style={{
+              background: `linear-gradient(90deg, 
+                ${i === 0 ? "rgba(59, 130, 246, 0.4)" : ""}
+                ${i === 1 ? "rgba(139, 92, 246, 0.4)" : ""}
+                ${i === 2 ? "rgba(236, 72, 153, 0.4)" : ""}
+                ${i === 3 ? "rgba(6, 182, 212, 0.4)" : ""}
+                , transparent)`,
+              width: "60%",
+              top: `${15 + i * 18}%`,
+              left: "-60%",
+            }}
+            animate={{
+              left: ["110%", "-60%"],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 15 + i * 3,
+              repeat: Infinity,
+              ease: "linear",
+              delay: i * 4,
+            }}
+          />
+        ))}
+
+        {/* Floating glassmorphic cards */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={`glass-${i}`}
+            className="absolute backdrop-blur-lg bg-white/20 rounded-2xl border border-white/30 shadow-xl"
+            style={{
+              width: 80 + i * 20,
+              height: 80 + i * 20,
+              left: `${15 + i * 18}%`,
+              top: `${10 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [0, -40, 0],
+              rotate: [0, 10, 0, -10, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 12 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1.5,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Dark mode: Darker gradient orbs */}
+      <div className="absolute inset-0 hidden dark:block">
         {/* Large orb 1 - Blue/Purple */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-float" />
 
@@ -172,17 +297,17 @@ export function HeroBackground() {
         <div className="absolute top-2/3 left-1/4 w-40 h-40 bg-gradient-to-br from-indigo-500/15 to-purple-500/15 rounded-full blur-2xl animate-float-delayed" />
       </div>
 
-      {/* Particle canvas */}
+      {/* Particle canvas - only in dark mode */}
       <canvas
         ref={canvasRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden dark:block"
       />
 
-      {/* Cursor spotlight effect */}
+      {/* Cursor spotlight effect - only in dark mode */}
       <motion.div
-        className="pointer-events-none fixed w-[600px] h-[600px] rounded-full"
+        className="pointer-events-none fixed w-[600px] h-[600px] rounded-full hidden dark:block"
         style={{
           background:
             "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 30%, transparent 70%)",
@@ -193,8 +318,8 @@ export function HeroBackground() {
         }}
       />
 
-      {/* Animated rays from center */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden opacity-20">
+      {/* Animated rays from center - only in dark mode */}
+      <div className="absolute inset-0 items-center justify-center overflow-hidden opacity-20 hidden dark:flex">
         {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
@@ -218,12 +343,12 @@ export function HeroBackground() {
         ))}
       </div>
 
-      {/* Floating geometric shapes */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Floating geometric shapes - only in dark mode */}
+      <div className="absolute inset-0 overflow-hidden hidden dark:block">
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute border border-primary/10"
+            className="absolute border border-primary/10 rounded-lg"
             style={{
               width: 40 + i * 15,
               height: 40 + i * 15,
@@ -244,15 +369,15 @@ export function HeroBackground() {
         ))}
       </div>
 
-      {/* Scanline effect */}
+      {/* Scanline effect - only visible in dark mode */}
       <motion.div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-100"
         style={{
           background:
             "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 92, 246, 0.03) 2px, rgba(139, 92, 246, 0.03) 4px)",
         }}
         animate={{
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0, 0.5, 0],
         }}
         transition={{
           duration: 2,
@@ -261,14 +386,8 @@ export function HeroBackground() {
         }}
       />
 
-      {/* Vignette effect */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%)",
-        }}
-      />
+      {/* Vignette effect - only in dark mode */}
+      <div className="absolute inset-0 pointer-events-none hidden dark:block dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
     </div>
   );
 }

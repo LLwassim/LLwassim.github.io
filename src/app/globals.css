@@ -72,13 +72,17 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+  html {
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    font-optical-sizing: auto;
+    scroll-behavior: smooth;
   }
 
-  html {
-    scroll-behavior: smooth;
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Reduced motion preferences */
@@ -104,6 +108,11 @@
 }
 
 @layer components {
+  /* Unified hero gradient utility */
+  .bg-hero {
+    @apply bg-gradient-to-r from-[hsl(217,91%,60%)] via-[hsl(280,85%,65%)] to-[hsl(330,81%,60%)];
+  }
+
   /* Primary gradient text */
   .gradient-text {
     @apply bg-gradient-to-r from-[var(--gradient-1)] via-[var(--gradient-2)] to-[var(--gradient-3)] bg-clip-text text-transparent;
@@ -111,9 +120,11 @@
     animation: gradient-shift 8s ease infinite;
   }
 
-  /* Glass effect */
+  /* Glass effect with improved backdrop */
   .glass {
     @apply bg-background/80 backdrop-blur-md border border-border/50;
+    background-clip: padding-box;
+    -webkit-backdrop-filter: blur(12px);
   }
 
   /* Focus ring */
@@ -447,6 +458,40 @@
   100% {
     background-position: 200% 0;
     opacity: 0;
+  }
+}
+
+/* Premium hero title shimmer - continuous wave effect */
+@keyframes hero-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Subtle glow pulse for title */
+@keyframes hero-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(20px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(25px);
+  }
+}
+
+/* Gentle float for individual words */
+@keyframes word-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
   }
 }
 

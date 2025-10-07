@@ -25,9 +25,9 @@ export default function ExperiencePage() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
-      <main className="flex-1 py-20">
+      <main className="flex-1 py-16 sm:py-20 lg:py-28">
         {/* Hero Section */}
-        <div className="container mb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Professional Experience
@@ -39,8 +39,8 @@ export default function ExperiencePage() {
             </p>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
                 <div className="flex items-center gap-2 mb-1">
                   <TrendingUp className="h-4 w-4 text-blue-400" />
                   <span className="text-xs font-medium text-blue-400">
@@ -50,7 +50,7 @@ export default function ExperiencePage() {
                 <div className="text-2xl font-bold text-white">6+ Years</div>
               </div>
 
-              <div className="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
                 <div className="flex items-center gap-2 mb-1">
                   <Briefcase className="h-4 w-4 text-purple-400" />
                   <span className="text-xs font-medium text-purple-400">
@@ -62,7 +62,7 @@ export default function ExperiencePage() {
                 </div>
               </div>
 
-              <div className="p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
                 <div className="flex items-center gap-2 mb-1">
                   <Award className="h-4 w-4 text-green-400" />
                   <span className="text-xs font-medium text-green-400">
@@ -78,7 +78,7 @@ export default function ExperiencePage() {
         </div>
 
         {/* Timeline */}
-        <div className="container">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <HorizontalTimeline items={timelineItems} />
         </div>
       </main>
