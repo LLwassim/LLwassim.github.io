@@ -3,7 +3,7 @@ export const siteConfig = {
   title:
     "Wassim LaCorchy | Principal Software Engineer & AI Solutions Architect",
   description:
-    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 6+ years experience in cloud infrastructure, microservices, and AI systems.",
+    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 7+ years experience in cloud infrastructure, microservices, and AI systems.",
   url: "https://llwassim.github.io",
   links: {
     github: "https://github.com/LLwassim",

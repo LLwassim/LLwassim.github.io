@@ -94,13 +94,13 @@ export function HeroSection() {
           {/* Download Resume - first on mobile */}
           <MagneticCTA className="order-1 sm:order-2">
             <a
-              href="/resume.pdf"
+              href="/XDevCalibiri.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 glass rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
             >
               <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-              Download Resume
+              View Resume
             </a>
           </MagneticCTA>
 

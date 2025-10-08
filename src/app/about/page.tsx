@@ -82,7 +82,7 @@ export default function AboutPage() {
                   market success.
                 </p>
                 <p>
-                  With 6+ years of experience across Fortune 500 companies and
+                  With 7+ years of experience across Fortune 500 companies and
                   startups, I specialize in cloud architecture, microservices,
                   AI/ML systems, and leading cross-functional teams to deliver
                   high-impact technical initiatives.

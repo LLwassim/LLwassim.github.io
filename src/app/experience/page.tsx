@@ -7,7 +7,7 @@ import { TrendingUp, Award, Briefcase } from "lucide-react";
 export const metadata = {
   title: "Experience - Wassim LaCorchy",
   description:
-    "6+ years of software engineering experience across Fortune 500 companies and startups",
+    "7+ years of software engineering experience across Fortune 500 companies and startups",
 };
 
 export default function ExperiencePage() {
@@ -33,7 +33,7 @@ export default function ExperiencePage() {
               Professional Experience
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              6+ years building scalable systems across fintech, insurance, real
+              7+ years building scalable systems across fintech, insurance, real
               estate, and music tech. Leading AI initiatives and cloud
               architecture at enterprise scale.
             </p>
@@ -47,7 +47,7 @@ export default function ExperiencePage() {
                     Experience
                   </span>
                 </div>
-                <div className="text-2xl font-bold text-white">6+ Years</div>
+                <div className="text-2xl font-bold text-white">7+ Years</div>
               </div>
 
               <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">

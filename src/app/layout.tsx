@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Wassim LaCorchy",
   },
   description:
-    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 6+ years experience in cloud infrastructure, microservices, and AI systems.",
+    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 7+ years experience in cloud infrastructure, microservices, and AI systems.",
   keywords: [
     "Wassim LaCorchy",
     "Software Engineer",

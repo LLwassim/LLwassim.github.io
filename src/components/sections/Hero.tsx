@@ -87,7 +87,7 @@ export function Hero() {
               at Lennar. Building scalable cloud infrastructure across fintech,
               insurance, and music tech.
               <span className="block mt-3 text-base text-muted-foreground">
-                6+ years experience • AWS Solutions Architect Professional • New
+                7+ years experience • AWS Solutions Architect Professional • New
                 York, NY
               </span>
             </p>
