@@ -111,6 +111,9 @@ const config: Config = {
         shimmer: "shimmer 3s linear infinite",
         gradient: "gradient 8s ease infinite",
       },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
       backgroundSize: {
         "300%": "300%",
       },
