@@ -24,7 +24,7 @@ var CaseStudy = defineDocumentType(() => ({
     order: { type: "number", default: 0 },
     category: {
       type: "enum",
-      options: ["AI", "Systems", "Mobile", "Data", "MusicTech"],
+      options: ["AI", "Systems", "Mobile", "Data", "Platform", "MusicTech"],
       required: true
     },
     image: { type: "string", required: true }
@@ -76,4 +76,4 @@ export {
   Writing,
   contentlayer_config_default as default
 };
-//# sourceMappingURL=compiled-contentlayer-config-VUAQ5UNQ.mjs.map
+//# sourceMappingURL=compiled-contentlayer-config-Z5BSMRGA.mjs.map

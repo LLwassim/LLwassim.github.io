@@ -5,87 +5,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Code2, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { allCaseStudies } from "contentlayer/generated";
 
-interface WorkItem {
-  id: string;
-  title: string;
-  company: string;
-  role: string;
-  timeline: string;
-  summary: string;
-  outcomes: string[];
-  stack: string[];
-  category: "AI" | "Systems" | "Mobile" | "Data" | "MusicTech";
-  image: string;
-  link: string;
-  featured?: boolean;
-}
+// Company name mapping based on case study slugs
+const companyMap: Record<string, string> = {
+  "lennar-ai-pricing": "Lennar",
+  "based-music": "Based Music LLC",
+  "city-national-innovation": "City National Bank",
+};
 
-// Sample work items - in production, these would come from MDX
-const workItems: WorkItem[] = [
-  {
-    id: "lennar-ai-pricing",
-    title: "AI-Driven Pricing Platform",
-    company: "Lennar",
-    role: "Principal Software Engineer",
-    timeline: "Feb 2025 - Present",
-    summary:
-      "Led architecture of flagship AI pricing platform driving $36M+ annual revenue uplift.",
-    outcomes: [
-      "↑ $36M+ revenue impact",
-      "↓ Decision time: days → minutes",
-      "↑ 100% adoption",
-    ],
-    stack: ["Next.js", "AWS", "DBT", "Snowflake", "GPT-4o"],
-    category: "AI",
-    image: "/images/lennar-logo-png_seeklogo-316733.png",
-    link: "/work/lennar-ai-pricing",
-    featured: true,
-  },
-  {
-    id: "based-music",
-    title: "Based Music Platform",
-    company: "Based Music LLC",
-    role: "Co-Founder",
-    timeline: "Sep 2024 - Present",
-    summary:
-      "Built cross-platform music discovery app with AI recommendations and real-time features.",
-    outcomes: [
-      "↓ Load time: 900ms → 120ms",
-      "↑ 10K+ users",
-      "↑ 45% engagement",
-    ],
-    stack: ["React Native", "AWS Lambda", "TensorFlow", "WebSockets"],
-    category: "MusicTech",
-    image: "/images/basedmusic.png",
-    link: "/work/based-music",
-    featured: true,
-  },
-  {
-    id: "city-national-innovation",
-    title: "Mortgage Processing Platform",
-    company: "City National Bank",
-    role: "Lead SDE",
-    timeline: "2021 - 2024",
-    summary:
-      "Excellence Award winner. Cut approval times from 45 days to 9 through microservices.",
-    outcomes: ["↓ 45 days → 9 days", "↑ 20% throughput", "🏆 Innovation Award"],
-    stack: ["Microservices", "Jenkins", "Redis", "AWS"],
-    category: "Systems",
-    image: "/images/City-National-Bank-logo.png",
-    link: "/work/city-national-innovation",
-    featured: false,
-  },
-];
+// Transform Contentlayer case studies to work items
+const workItems = allCaseStudies
+  .map((study) => ({
+    id: study.slug,
+    title: study.title.split(" - ")[0].trim(), // Extract main title before dash
+    company: companyMap[study.slug] || study.title.split(" ")[0], // Get company from map or first word
+    role: Array.isArray(study.role) ? study.role[0] : study.role, // Take first role
+    timeline: study.timeline,
+    summary: study.summary,
+    outcomes: study.outcomes.slice(0, 3), // Show first 3 outcomes
+    stack: study.stack,
+    category: study.category,
+    image: study.image,
+    link: study.url,
+    featured: study.featured,
+    order: study.order || 0,
+  }))
+  .sort((a, b) => a.order - b.order); // Sort by order field
 
-const categories = [
-  "All",
-  "AI",
-  "Systems",
-  "Mobile",
-  "Data",
-  "MusicTech",
-] as const;
+// Category definitions
+const categories = ["All", "Systems", "Mobile", "Platform"] as const;
+
+// Professional display names for categories
+const categoryDisplayNames: Record<string, string> = {
+  All: "All Projects",
+  Systems: "Enterprise Systems",
+  Mobile: "Mobile Applications",
+  Platform: "Platform Engineering",
+  AI: "AI & Machine Learning", // Hidden from filters but used in data
+  Data: "Data Engineering", // Hidden from filters but used in data
+  MusicTech: "Music Technology", // Hidden from filters but used in data
+};
 
 export function WorkGrid() {
   const [selectedCategory, setSelectedCategory] =
@@ -127,14 +87,14 @@ export function WorkGrid() {
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={cn(
-                "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
+                "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
                 selectedCategory === category
                   ? "bg-hero text-white shadow-lg scale-105"
                   : "glass hover:shadow-md hover:scale-105"
               )}
               aria-pressed={selectedCategory === category}
             >
-              {category}
+              {categoryDisplayNames[category] || category}
             </button>
           ))}
         </div>
@@ -219,7 +179,7 @@ export function WorkGrid() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Code2 className="w-3.5 h-3.5" />
-                    {item.category}
+                    {categoryDisplayNames[item.category] || item.category}
                   </div>
                 </div>
               </div>

@@ -26,7 +26,7 @@ export type CaseStudy = {
   whatIdDoNext: string[]
   featured: boolean
   order: number
-  category: 'AI' | 'Systems' | 'Mobile' | 'Data' | 'MusicTech'
+  category: 'AI' | 'Systems' | 'Mobile' | 'Data' | 'Platform' | 'MusicTech'
   image: string
   /** MDX file body */
   body: MDX

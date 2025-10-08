@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HeroSection } from "@/components/sections/hero-section";
-import { WorkGrid } from "@/components/sections/work-grid";
+import { FeaturedWorkCarousel } from "@/components/sections/featured-work-carousel";
 import { SocialProof } from "@/components/sections/social-proof";
 import { PersonalNote } from "@/components/sections/personal-note";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -28,14 +28,7 @@ export default function HomePage() {
       <main>
         <HeroSection />
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
-        >
-          <WorkGrid />
-        </motion.div>
+        <FeaturedWorkCarousel />
 
         <motion.div
           initial="hidden"

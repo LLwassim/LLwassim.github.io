@@ -1,7 +1,6 @@
-import { allCaseStudies } from "contentlayer/generated";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { WorkGrid } from "@/components/sections/work-grid";
+import { FeaturedWorkCarousel } from "@/components/sections/featured-work-carousel";
 
 export const metadata = {
   title: "Work",
@@ -14,9 +13,7 @@ export default function WorkPage() {
     <>
       <SiteHeader />
       <main className="min-h-screen pt-24">
-        <div className="container py-12">
-          <WorkGrid />
-        </div>
+        <FeaturedWorkCarousel />
       </main>
       <SiteFooter />
     </>

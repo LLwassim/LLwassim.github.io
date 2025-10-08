@@ -24,7 +24,7 @@ export const CaseStudy = defineDocumentType(() => ({
     order: { type: "number", default: 0 },
     category: {
       type: "enum",
-      options: ["AI", "Systems", "Mobile", "Data", "MusicTech"],
+      options: ["AI", "Systems", "Mobile", "Data", "Platform", "MusicTech"],
       required: true,
     },
     image: { type: "string", required: true },
