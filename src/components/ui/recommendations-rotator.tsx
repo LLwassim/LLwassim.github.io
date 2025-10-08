@@ -86,27 +86,31 @@ export function RecommendationsRotator({
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             className="absolute inset-0"
           >
-            <blockquote className="relative max-w-4xl mx-auto">
-              {/* Opening quote mark */}
-              <div className="text-6xl sm:text-7xl text-primary/20 leading-none select-none text-left">
-                "
-              </div>
+            <blockquote className="relative max-w-4xl mx-auto px-8 sm:px-12">
+              {/* Quote text with quote marks inline */}
+              <div className="relative">
+                {/* Opening quote mark */}
+                <span className="absolute -left-8 sm:-left-12 top-0 text-5xl sm:text-6xl text-primary/20 leading-none select-none">
+                  "
+                </span>
 
-              {/* Quote text */}
-              <p className="text-lg sm:text-xl text-muted-foreground italic leading-relaxed px-4 relative text-left">
-                {currentRecommendation.quote}
-              </p>
+                {/* Quote text - center aligned */}
+                <p className="text-lg sm:text-xl text-muted-foreground italic leading-relaxed text-center mb-0">
+                  {currentRecommendation.quote}
+                </p>
 
-              {/* Closing quote mark */}
-              <div className="text-6xl sm:text-7xl text-primary/20 leading-none text-right select-none mb-4">
-                "
+                {/* Closing quote mark */}
+                <span className="absolute -right-8 sm:-right-12 bottom-0 text-5xl sm:text-6xl text-primary/20 leading-none select-none">
+                  "
+                </span>
               </div>
 
               {/* Author info */}
-              <footer className="flex flex-col gap-1 text-sm text-center">
+              <footer className="flex items-center justify-center gap-2 text-sm text-center mt-6">
                 <span className="font-semibold text-foreground">
-                  — {currentRecommendation.author}
+                  {currentRecommendation.author}
                 </span>
+                <span className="text-muted-foreground">•</span>
                 <span className="text-muted-foreground">
                   {currentRecommendation.title}
                 </span>
