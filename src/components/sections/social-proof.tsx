@@ -163,6 +163,12 @@ export function SocialProof() {
                       width={company.width}
                       height={company.height}
                       className="object-contain"
+                      style={{
+                        height: "auto",
+                        width: "auto",
+                        maxWidth: company.width,
+                        maxHeight: company.height,
+                      }}
                     />
                   </div>
                 ))}

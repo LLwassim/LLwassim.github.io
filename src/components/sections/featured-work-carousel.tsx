@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Code2, Sparkles } from "lucide-react";
@@ -57,6 +57,23 @@ const categoryDisplayNames: Record<string, string> = {
  */
 function EtherealBackground() {
   const shouldReduceMotion = prefersReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Generate particle positions only on client-side to avoid hydration mismatch
+  const particles = useMemo(() => {
+    if (!isMounted) return [];
+    return Array.from({ length: 30 }).map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 8 + Math.random() * 10,
+      delay: Math.random() * 5,
+    }));
+  }, [isMounted]);
+
+  // Set mounted state after hydration
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -114,15 +131,15 @@ function EtherealBackground() {
       )}
 
       {/* Floating particles */}
-      {!shouldReduceMotion && (
+      {!shouldReduceMotion && isMounted && (
         <div className="absolute inset-0">
-          {Array.from({ length: 30 }).map((_, i) => (
+          {particles.map((particle, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-primary/30 rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
               }}
               animate={{
                 y: [-20, -60, -20],
@@ -131,10 +148,10 @@ function EtherealBackground() {
                 scale: [0.5, 1.5, 0.5],
               }}
               transition={{
-                duration: 8 + Math.random() * 10,
+                duration: particle.duration,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: Math.random() * 5,
+                delay: particle.delay,
               }}
             />
           ))}
@@ -336,6 +353,7 @@ export function FeaturedWorkCarousel() {
                         src={item.image}
                         alt={item.title}
                         fill
+                        sizes="(max-width: 640px) 85vw, (max-width: 768px) 340px, (max-width: 1024px) 400px, 480px"
                         className="object-cover transition-all duration-700 group-hover:scale-110"
                       />
                     )}

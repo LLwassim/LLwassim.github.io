@@ -40,7 +40,7 @@
     "rehype-highlight": "^7.0.2",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "sonner": "^1.4.0",
+    "sonner": "^1.7.4",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.0"
   },

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, Github, Linkedin, Download } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Download, Calendar } from "lucide-react";
 import { HeroSequence } from "@/components/animations/hero-sequence";
 import { MagneticCTA } from "@/components/animations/magnetic-cta";
 import { HeroBackground } from "@/components/ui/hero-background";
@@ -89,10 +89,35 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* CTAs - Download Resume first on mobile, View Work first on desktop */}
+        {/* CTAs - Book a Call primary, then View Work, then View Resume */}
         <div className="hero-cta flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 hero-element max-w-md sm:max-w-none mx-auto">
-          {/* Download Resume - first on mobile */}
-          <MagneticCTA className="order-1 sm:order-2">
+          {/* Book a Call - first on all screens */}
+          <MagneticCTA>
+            <a
+              href="https://calendly.com/wassimlacorchy/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics="cta_book_call_hero"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-hero text-white rounded-xl font-medium shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 w-full sm:w-auto"
+            >
+              <Calendar className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              Book a Call
+            </a>
+          </MagneticCTA>
+
+          {/* View Work - second with bouncing arrow */}
+          <MagneticCTA>
+            <Link
+              href="#work"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-hero text-white rounded-xl font-medium shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 w-full sm:w-auto"
+            >
+              View Work
+              <ArrowDown className="w-4 h-4 animate-bounce group-hover:animate-none group-hover:translate-y-1 transition-transform" />
+            </Link>
+          </MagneticCTA>
+
+          {/* View Resume - third */}
+          <MagneticCTA>
             <a
               href="/XDevCalibiri.pdf"
               target="_blank"
@@ -102,17 +127,6 @@ export function HeroSection() {
               <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
               View Resume
             </a>
-          </MagneticCTA>
-
-          {/* View Work - second on mobile, first on desktop - with bouncing arrow */}
-          <MagneticCTA className="order-2 sm:order-1">
-            <Link
-              href="#work"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-hero text-white rounded-xl font-medium shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 w-full sm:w-auto"
-            >
-              View Work
-              <ArrowDown className="w-4 h-4 animate-bounce group-hover:animate-none group-hover:translate-y-1 transition-transform" />
-            </Link>
           </MagneticCTA>
         </div>
 

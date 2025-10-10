@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { MagneticCTA } from "@/components/animations/magnetic-cta";
 import { GlobalNetworkBackground } from "@/components/ui/global-network-background";
+import { ContactFormModal } from "./ContactFormModal";
 
 export function PersonalNote() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
       {/* Animated Global Network Background */}
@@ -33,26 +37,40 @@ export function PersonalNote() {
               conversation about technology and startups.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4">
-              <MagneticCTA>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 px-6 py-3 glass rounded-lg font-medium hover:shadow-lg transition-all duration-300 group"
-                >
-                  Learn more about me
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </MagneticCTA>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-wrap justify-center gap-4">
+                <MagneticCTA>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 px-6 py-3 glass rounded-lg font-medium hover:shadow-lg transition-all duration-300 group"
+                  >
+                    Learn more about me
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </MagneticCTA>
 
-              <MagneticCTA>
-                <a
-                  href="mailto:wassimlacorchy@gmail.com"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--gradient-1)] to-[var(--gradient-2)] text-white rounded-lg font-medium hover:shadow-xl transition-all duration-300 group"
-                >
-                  <Mail className="w-4 h-4" />
-                  Get in touch
-                </a>
-              </MagneticCTA>
+                <MagneticCTA>
+                  <a
+                    href="https://calendly.com/wassimlacorchy/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-analytics="cta_book_call_bottom"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--gradient-1)] to-[var(--gradient-2)] text-white rounded-lg font-medium hover:shadow-xl transition-all duration-300 group"
+                  >
+                    <Calendar className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                    Book a Call
+                  </a>
+                </MagneticCTA>
+              </div>
+
+              {/* Secondary link to open contact form */}
+              <button
+                onClick={() => setIsModalOpen(true)}
+                data-analytics="cta_open_contact_form"
+                className="text-sm text-muted-foreground hover:text-primary underline-offset-4 hover:underline transition-all"
+              >
+                Prefer to write? Send a message instead.
+              </button>
             </div>
 
             {/* Availability status */}
@@ -68,6 +86,12 @@ export function PersonalNote() {
           </div>
         </div>
       </div>
+
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
