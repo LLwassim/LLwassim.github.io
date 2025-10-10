@@ -15,7 +15,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen py-24 sm:py-28 lg:py-32 flex items-center justify-center overflow-hidden">
       {/* Soft off-white background in light mode, dark background in dark mode */}
       <div className="absolute inset-0 bg-[#fafafa] dark:bg-background" />
 
@@ -63,8 +63,8 @@ export function HeroSection() {
         </div>
 
         {/* Subtitle */}
-        <p className="hero-subtitle text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto hero-element">
-          Building fast, reliable, human-centered products
+        <p className="hero-subtitle text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto hero-element">
+          Build reliable AI & systems that ship fast + deliver impact.
         </p>
 
         {/* Metrics row */}
@@ -89,7 +89,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* CTAs - Book a Call primary, then View Work, then View Resume */}
+        {/* CTAs - Book a Call primary, then View Resume */}
         <div className="hero-cta flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 hero-element max-w-md sm:max-w-none mx-auto">
           {/* Book a Call - first on all screens */}
           <MagneticCTA>
@@ -105,18 +105,7 @@ export function HeroSection() {
             </a>
           </MagneticCTA>
 
-          {/* View Work - second with bouncing arrow */}
-          <MagneticCTA>
-            <Link
-              href="#work"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-hero text-white rounded-xl font-medium shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 w-full sm:w-auto"
-            >
-              View Work
-              <ArrowDown className="w-4 h-4 animate-bounce group-hover:animate-none group-hover:translate-y-1 transition-transform" />
-            </Link>
-          </MagneticCTA>
-
-          {/* View Resume - third */}
+          {/* View Resume - second */}
           <MagneticCTA>
             <a
               href="/XDevCalibiri.pdf"
@@ -153,8 +142,8 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator - hidden on mobile, visible on larger screens */}
-      <div className="hidden sm:flex absolute bottom-8 left-0 right-0 justify-center z-10">
+      {/* Scroll indicator - visible on all screens */}
+      <div className="flex absolute bottom-8 left-0 right-0 justify-center z-10">
         <button
           onClick={scrollToWork}
           className="p-2 animate-bounce hover:scale-110 transition-transform"

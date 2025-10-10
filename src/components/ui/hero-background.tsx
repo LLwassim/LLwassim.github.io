@@ -158,48 +158,93 @@ export function HeroBackground() {
     <div className="absolute inset-0 overflow-hidden">
       {/* Light mode: Creative wave and gradient streams design */}
       <div className="absolute inset-0 dark:hidden">
-        {/* Static waves at the bottom */}
-        <svg
-          className="absolute bottom-0 left-0 w-full h-64"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="url(#wave-gradient-1)"
-            fillOpacity="0.3"
-            d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          />
-          <path
-            fill="url(#wave-gradient-2)"
-            fillOpacity="0.25"
-            d="M0,160L48,144C96,128,192,96,288,96C384,96,480,128,576,133.3C672,139,768,117,864,117.3C960,117,1056,139,1152,154.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          />
-          <defs>
-            <linearGradient
-              id="wave-gradient-1"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
+        {/* Animated waves at the bottom */}
+        <div className="absolute bottom-0 left-0 w-full h-64 overflow-hidden">
+          {/* Wave layer 1 - slower, larger motion */}
+          <motion.div
+            className="absolute bottom-0 w-full h-full"
+            animate={{
+              y: [0, -15, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <svg
+              className="absolute bottom-0 left-0 w-[200%] h-64"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 2880 320"
+              preserveAspectRatio="none"
+              style={{
+                animation: "wave-slide-1 25s linear infinite",
+              }}
             >
-              <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="50%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#ec4899" />
-            </linearGradient>
-            <linearGradient
-              id="wave-gradient-2"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
+              <path
+                fill="url(#wave-gradient-1)"
+                fillOpacity="0.3"
+                d="M0,96L60,112C120,128,240,160,360,165.3C480,171,600,149,720,133.3C840,117,960,107,1080,122.7C1200,139,1320,181,1440,181.3C1560,181,1680,139,1800,117.3L1920,96L1920,320L1800,320C1680,320,1560,320,1440,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z M1920,96L1980,112C2040,128,2160,160,2280,165.3C2400,171,2520,149,2640,133.3C2760,117,2880,107,2940,122.7L2880,139L2880,320L2940,320C2880,320,2760,320,2640,320C2520,320,2400,320,2280,320C2160,320,2040,320,1980,320L1920,320Z"
+              />
+              <defs>
+                <linearGradient
+                  id="wave-gradient-1"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="50%" stopColor="#8b5cf6" />
+                  <stop offset="100%" stopColor="#ec4899" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </motion.div>
+
+          {/* Wave layer 2 - faster, subtle motion */}
+          <motion.div
+            className="absolute bottom-0 w-full h-full"
+            animate={{
+              y: [0, -10, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          >
+            <svg
+              className="absolute bottom-0 left-0 w-[200%] h-64"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 2880 320"
+              preserveAspectRatio="none"
+              style={{
+                animation: "wave-slide-2 18s linear infinite reverse",
+              }}
             >
-              <stop offset="0%" stopColor="#06b6d4" />
-              <stop offset="50%" stopColor="#10b981" />
-              <stop offset="100%" stopColor="#f59e0b" />
-            </linearGradient>
-          </defs>
-        </svg>
+              <path
+                fill="url(#wave-gradient-2)"
+                fillOpacity="0.25"
+                d="M0,160L60,144C120,128,240,96,360,96C480,96,600,128,720,133.3C840,139,960,117,1080,117.3C1200,117,1320,139,1440,154.7C1560,171,1680,181,1800,186.7L1920,192L1920,320L1800,320C1680,320,1560,320,1440,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z M1920,160L1980,144C2040,128,2160,96,2280,96C2400,96,2520,128,2640,133.3C2760,139,2880,117,2940,117.3L2880,139L2880,320L2940,320C2880,320,2760,320,2640,320C2520,320,2400,320,2280,320C2160,320,2040,320,1980,320L1920,320Z"
+              />
+              <defs>
+                <linearGradient
+                  id="wave-gradient-2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="50%" stopColor="#10b981" />
+                  <stop offset="100%" stopColor="#f59e0b" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </motion.div>
+        </div>
 
         {/* Flowing gradient ribbons */}
         {[...Array(4)].map((_, i) => (

@@ -76,7 +76,7 @@ export function HeroTitle({ className }: HeroTitleProps) {
     <h1
       ref={titleRef}
       className={cn(
-        "text-[clamp(1.75rem,6vw,4.5rem)] leading-tight font-semibold tracking-tight",
+        "text-[clamp(1.75rem,6vw,4.5rem)] leading-tight font-bold tracking-tight",
         "bg-hero bg-clip-text text-transparent",
         "bg-[length:200%_100%] bg-[position:0%_center]",
         // Static gradient for reduced motion users

@@ -257,7 +257,7 @@ export function FeaturedWorkCarousel() {
   return (
     <section
       id="work"
-      className="py-12 sm:py-20 md:py-28 lg:py-36 relative overflow-hidden"
+      className="pt-20 sm:pt-24 pb-20 sm:pb-24 relative overflow-hidden"
     >
       {/* Ethereal background */}
       <EtherealBackground />

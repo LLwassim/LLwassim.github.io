@@ -204,6 +204,25 @@
   }
 }
 
+/* Wave animations for hero section */
+@keyframes wave-slide-1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes wave-slide-2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
