@@ -46,6 +46,38 @@ export function ContactFormModal({ isOpen, onClose }: ContactFormModalProps) {
     };
   }, [isOpen]);
 
+  // Populate hidden analytics fields with UTM params and referrer
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+
+    const populateFields = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+
+      const assign = (name: string, value: string | null) => {
+        const input = form.querySelector<HTMLInputElement>(
+          `input[name="${name}"]`
+        );
+        if (input) {
+          input.value = value ?? "";
+        }
+      };
+
+      assign("utm_source", params.get("utm_source"));
+      assign("utm_medium", params.get("utm_medium"));
+      assign("utm_campaign", params.get("utm_campaign"));
+      assign("referrer", document.referrer || "");
+    };
+
+    requestAnimationFrame(populateFields);
+  }, [isOpen]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -274,6 +306,12 @@ export function ContactFormModal({ isOpen, onClose }: ContactFormModalProps) {
                     </div>
                   </div>
 
+                  {/* Tracking fields */}
+                  <input type="hidden" name="utm_source" />
+                  <input type="hidden" name="utm_medium" />
+                  <input type="hidden" name="utm_campaign" />
+                  <input type="hidden" name="referrer" />
+
                   {/* Honeypot field - hidden from users */}
                   <input
                     type="text"
@@ -309,6 +347,7 @@ export function ContactFormModal({ isOpen, onClose }: ContactFormModalProps) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
+                    data-analytics="contact_form_submit"
                     className="w-full px-6 py-3 bg-gradient-to-r from-[var(--gradient-1)] to-[var(--gradient-2)] text-white rounded-lg font-medium hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}

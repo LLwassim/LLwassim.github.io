@@ -8,6 +8,7 @@ import { MagneticCTA } from "@/components/animations/magnetic-cta";
 import { HeroBackground } from "@/components/ui/hero-background";
 import { HeroTitle } from "@/components/ui/hero-title";
 import { cn } from "@/lib/utils";
+import { buildCalendlyUrl } from "@/lib/urls";
 
 export function HeroSection() {
   const scrollToWork = () => {
@@ -94,7 +95,7 @@ export function HeroSection() {
           {/* Book a Call - first on all screens */}
           <MagneticCTA>
             <a
-              href="https://calendly.com/wassimlacorchy/30min"
+              href={buildCalendlyUrl("hero_cta")}
               target="_blank"
               rel="noopener noreferrer"
               data-analytics="cta_book_call_hero"

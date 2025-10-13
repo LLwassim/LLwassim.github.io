@@ -6,6 +6,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { MagneticCTA } from "@/components/animations/magnetic-cta";
 import { GlobalNetworkBackground } from "@/components/ui/global-network-background";
 import { ContactFormModal } from "./ContactFormModal";
+import { buildCalendlyUrl } from "@/lib/urls";
 
 export function PersonalNote() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +52,7 @@ export function PersonalNote() {
 
                 <MagneticCTA>
                   <a
-                    href="https://calendly.com/wassimlacorchy/30min"
+                    href={buildCalendlyUrl("footer_cta")}
                     target="_blank"
                     rel="noopener noreferrer"
                     data-analytics="cta_book_call_bottom"
