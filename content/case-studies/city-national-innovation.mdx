@@ -46,7 +46,98 @@ City National Bank's legacy underwriting suite serialized every stage of mortgag
 
 I led an incremental migration that reframed underwriting as event-driven choreography while protecting production stability and regulator trust.
 
+### Modernization Program Timeline
+
+<AnimatedTimeline
+  milestones={[
+    {
+      phase: "Stabilize & Observe",
+      date: "Q3 2021",
+      title: "Benchmarked legacy bottlenecks",
+      description:
+        "Instrumented the monolith and traced the highest-risk failure modes while aligning auditors on safety guardrails.",
+      achievements: [
+        "Built live dashboards covering 18 underwriting paths and SLA drift",
+        "Mapped manual runbooks into an automation backlog prioritized by regulatory impact",
+      ],
+    },
+    {
+      phase: "Modularize Workflows",
+      date: "Q1 2022",
+      title: "Piloted event-driven Step Functions",
+      description:
+        "Split intake, bureau sync, appraisal, and compliance into isolated express state machines behind safe traffic mirroring.",
+      achievements: [
+        "Delivered a dual-run slice handling 30% of nightly loan volume in four weeks",
+        "Validated zoned failure policies against regulator-reviewed incident scenarios",
+      ],
+    },
+    {
+      phase: "Automate Recovery",
+      date: "Q4 2022",
+      title: "Productized rollback and replay patterns",
+      description:
+        "Codified compensating SLIs, automated roll-forward handlers, and replayable audits before sunsetting the monolith.",
+      achievements: [
+        "Neutralized poison-pill loans automatically with sub-5-minute quarantine cycles",
+        "Cut stranded workflows from 60 per week to zero during production cutover",
+      ],
+    },
+    {
+      phase: "Scale & Govern",
+      date: "2023 - 2024",
+      title: "Scaled with multi-signal guardrails",
+      description:
+        "Raised deployment frequency while keeping regulator trust through DORA reporting and burn-rate gated scaling.",
+      achievements: [
+        "Weekday deploy cadence with under 5% change failure rate sustained for 12 months",
+        "Automated quarterly audit evidence packaging delivered zero migration findings",
+      ],
+    },
+  ]}
+/>
+
 ### Underwriting-Stage Metrics
+
+<InteractiveMetrics
+  metrics={[
+    {
+      label: "Intake Validation p95",
+      value: "140s",
+      change: "down 35%",
+      description:
+        "Document and schema checks stabilized with asynchronous retries and staged rollouts.",
+    },
+    {
+      label: "Credit Bureau Timeout Rate",
+      value: "0.4%",
+      change: "down 60%",
+      description:
+        "Multiattempt bureau sync with circuit breakers trimmed daily timeout incidents.",
+    },
+    {
+      label: "Collateral Appraisal SLA",
+      value: "45 min",
+      change: "down 50%",
+      description:
+        "Async appraisal scoring kept collateral review under the sub-hour objective.",
+    },
+    {
+      label: "Compliance Rule Latency",
+      value: "8s",
+      change: "down 70%",
+      description:
+        "Deterministic rules engine shipped with queue back-pressure telemetry.",
+    },
+    {
+      label: "Scorecard Adoption",
+      value: "Daily",
+      change: "up",
+      description:
+        "Operations leadership consumed standardized underwriting scorecards each morning.",
+    },
+  ]}
+/>
 
 Each underwriting stage now exposes a standardized telemetry envelope:
 
@@ -67,6 +158,47 @@ We decomposed the monolith into Step Functions express workflows partitioned by 
 
 This configuration recovered 100% of stranded workflows within 15 minutes during quarterly game-day exercises.
 
+### Event-Driven Orchestration Blueprint
+
+<MermaidDiagram
+  chart={`graph TD
+    Intake[Intake Validation API]
+    StepIntake[Step Functions Intake Stage]
+    QueueIntake[SQS Intake Queue]
+    ECSIntake[ECS Intake Workers]
+    StepBureau[Step Functions Credit Bureau Stage]
+    QueueBureau[SQS Bureau Queue]
+    ECSBureau[ECS Bureau Workers]
+    StepAppraisal[Step Functions Appraisal Stage]
+    Decision[Underwriting Decision API]
+    Audit[DynamoDB Audit Evidence]
+    Observability[New Relic + Grafana Telemetry]
+    AutoScale[Burn-rate Auto Scaling Gate]
+    Quarantine[Poison Pill Quarantine Lambda]
+
+    Intake --> StepIntake
+    StepIntake --> QueueIntake
+    QueueIntake --> ECSIntake
+    ECSIntake --> StepBureau
+    StepBureau --> QueueBureau
+    QueueBureau --> ECSBureau
+    ECSBureau --> StepAppraisal
+    StepAppraisal --> Decision
+
+    StepIntake --> Observability
+    StepBureau --> Observability
+    StepAppraisal --> Observability
+
+    Observability --> AutoScale
+    AutoScale --> ECSIntake
+    AutoScale --> ECSBureau
+
+    StepAppraisal --> Audit
+    QueueBureau --> Quarantine
+    Quarantine --> StepBureau
+  `}
+/>
+
 ### SQS Poison-Pill Compensating SLI
 
 Poison-pill messages previously created cascading failures. We established a compensating SLI that tracked:
@@ -86,6 +218,70 @@ Auto-scaling moved beyond CPU thresholds. We combined:
 3. **Error budget burn-rate** computed from Stage-level SLOs.
 
 Only when burn-rate indicators stayed under 1.5 for fifteen minutes would horizontal scaling execute. This prevented thrash during transient partner outages while ensuring recovery stayed within the 30-minute objective.
+
+### Platform Control Surfaces
+
+<InteractiveArchitecture
+  services={[
+    {
+      id: "intake",
+      name: "Intake and Validation Mesh",
+      description:
+        "API Gateway, Lambda, and Step Functions stages validate borrower payloads, documents, and bureau handshakes before orchestration.",
+      tech: ["API Gateway", "Lambda", "Step Functions", "SQS"],
+      metrics: [
+        { label: "p95 Latency", value: "140s" },
+        { label: "Success Rate", value: "99.3%" },
+        { label: "Nightly Volume", value: "12K loans" },
+        { label: "Rollback Incidents", value: "<2/wk" },
+      ],
+    },
+    {
+      id: "orchestration",
+      name: "Express Workflow Fabric",
+      description:
+        "Partitioned Step Functions with zoned failure policies, replayable audits, and automated roll-forward handlers.",
+      tech: ["Step Functions", "DynamoDB", "SQS", "Lambda"],
+      metrics: [
+        { label: "Recovery Time", value: "15 min" },
+        { label: "Replay Success", value: "100%" },
+        { label: "Audit Drift", value: "0 findings" },
+        { label: "Game Days", value: "Quarterly" },
+      ],
+    },
+    {
+      id: "autoscaling",
+      name: "Multi-Signal Scaling Gate",
+      description:
+        "Combines concurrency, queue age, and burn-rate telemetry to authorize ECS capacity changes only when safe.",
+      tech: ["ECS", "CloudWatch", "Lambda", "Terraform"],
+      metrics: [
+        { label: "Burn-rate Threshold", value: "<1.5" },
+        { label: "Scale Decisions", value: "2/hr peak" },
+        { label: "Thrash Events", value: "0" },
+        { label: "SLO Coverage", value: "4 stages" },
+      ],
+    },
+    {
+      id: "observability",
+      name: "Underwriting Scorecard",
+      description:
+        "Unified telemetry pipeline feeds New Relic, Grafana heatmaps, and daily DORA scorecards for leadership and risk.",
+      tech: ["New Relic", "Grafana", "Looker", "Terraform"],
+      metrics: [
+        { label: "Reporting Cadence", value: "Daily" },
+        { label: "Distribution", value: "Ops + Risk" },
+        { label: "Deployment Frequency", value: "5x/week" },
+        { label: "Change Failure Rate", value: "<5%" },
+      ],
+    },
+  ]}
+/>
+
+<Callout type="info">
+  Select any capability above to dig into the stack, metrics, and operating
+  posture that kept regulators and underwriting aligned.
+</Callout>
 
 ### HTTP Revalidation Strategy
 
