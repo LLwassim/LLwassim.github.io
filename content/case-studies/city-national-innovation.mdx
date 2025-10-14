@@ -164,7 +164,7 @@ We decomposed the monolith into Step Functions express workflows partitioned by 
 2. **Automated roll-forward handlers** that re-queued idempotent tasks with exponential delay, keeping manual restarts under 2 per week.
 3. **Replayable audit events** persisted to DynamoDB with idempotency keys so recovery preserved evidence chains.
 
-During quarterly game-day exercises, this configuration recovered **>=99%** of stranded workflows **within 15 minutes** (p95 <= 15 minutes; p99 <= 30 minutes).
+During quarterly game-day exercises, this configuration recovered **>=99%** of stranded workflows **within 15 minutes** (p95 &lt;= 15 minutes; p99 &lt;= 30 minutes).
 
 #### Replay Harness Excerpt
 
@@ -241,7 +241,7 @@ The replay runbook pairs this harness with DynamoDB idempotency keys so every re
 
 Poison-pill messages previously created cascading failures. We established a compensating SLI that tracked:
 
-- DLQ ingress share <= 0.3% with redrive age p95 <= 5 minutes; alerts triggered on sustained breach across 10-minute (fast) and 1-hour (slow) windows.
+- DLQ ingress share &lt;= 0.3% with redrive age p95 &lt;= 5 minutes; alerts triggered on sustained breach across 10-minute (fast) and 1-hour (slow) windows.
 - Time-to-neutralize, enforced to stay under 5 minutes through automated quarantining lambdas (rolling 6-week window).
 - Duplicate delivery ratio, held under 0.2% with idempotent consumers (rolling 6-week window).
 
@@ -353,7 +353,7 @@ We published a rolling 30-day DORA scorecard via Looker:
 
 - **Deployment frequency**: >=3/day on weekdays (30-day view).
 - **Lead time for changes**: median ~10-12 hours from merge to production.
-- **Change failure rate**: <= 9.6% while meeting control evidence requirements.
+- **Change failure rate**: &lt;= 9.6% while meeting control evidence requirements.
 - **Mean time to recovery**: ~27 minutes thanks to Step Functions roll-forward automation.
 
 The scorecard satisfied both engineering retrospectives and the operational risk committee's reporting cadence.
