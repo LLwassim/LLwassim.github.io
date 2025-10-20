@@ -109,7 +109,7 @@ export function HeroSection() {
           {/* View Resume - second */}
           <MagneticCTA>
             <a
-              href="/XDevCalibiri.pdf"
+              href="/SkimResume1.26.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 glass rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
