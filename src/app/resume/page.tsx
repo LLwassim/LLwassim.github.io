@@ -2,5 +2,5 @@ import { redirect } from "next/navigation";
 
 export default function ResumePage() {
   // Redirect to the PDF in the public folder
-  redirect("/SkimResume1.26.pdf");
+  redirect("/SkimResume1.27.pdf");
 }
