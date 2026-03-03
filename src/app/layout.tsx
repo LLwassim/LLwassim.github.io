@@ -32,14 +32,14 @@ export const metadata: Metadata = {
     template: "%s | Wassim LaCorchy",
   },
   description:
-    "Principal Software Engineer at Lennar driving $36M+ revenue impact through AI-driven pricing platforms. Co-Founder of Based Music. AWS Solutions Architect Professional with 7+ years experience in cloud infrastructure, microservices, and AI systems.",
+    "Principal Software Engineer - Applied AI at Lennar driving $36M+ pricing impact, former Senior Solutions Architect at AWS, and Co-Founder at Lasaria building production LLM agent systems.",
   keywords: [
     "Wassim LaCorchy",
     "Software Engineer",
     "AI Solutions Architect",
     "Principal Engineer",
     "Lennar",
-    "Based Music",
+    "Lasaria",
     "Full Stack Developer",
     "Cloud Architecture",
     "AWS",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title:
       "Wassim LaCorchy | Principal Software Engineer & AI Solutions Architect",
     description:
-      "Principal Software Engineer at Lennar driving $36M+ revenue impact. Co-Founder of Based Music. Building fast, reliable, human-centered products.",
+      "Principal Software Engineer - Applied AI at Lennar with $36M+ pricing impact. Former AWS ProServe architect and Co-Founder at Lasaria.",
     siteName: "Wassim LaCorchy Portfolio",
     images: [
       {
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wassim LaCorchy | Principal Software Engineer",
     description:
-      "Building AI-driven solutions with $36M+ revenue impact. Principal SWE at Lennar, Co-Founder of Based Music.",
+      "Building AI-driven solutions with $36M+ pricing impact. Former AWS ProServe architect and Co-Founder at Lasaria.",
     images: ["/images/og-image.png"],
     creator: "@wassimlacorchy",
   },
@@ -131,7 +131,7 @@ const jsonLd = {
   email: "wassimlacorchy@gmail.com",
   telephone: "+15716038538",
   description:
-    "Principal Software Engineer at Lennar with expertise in AI solutions, cloud architecture, and full-stack development. $36M+ revenue impact through innovative pricing platforms.",
+    "Principal Software Engineer - Applied AI with expertise in enterprise agent systems, cloud architecture, and full-stack delivery. Drove $36M+ impact through AI pricing platforms.",
   knowsAbout: [
     "Software Engineering",
     "AI/ML",
