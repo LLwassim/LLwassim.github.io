@@ -54,13 +54,13 @@ export function Hero() {
             <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:scale-105 backdrop-blur-sm">
               <Building2 className="h-4 w-4 text-blue-600 dark:text-blue-400 group-hover:animate-bounce" />
               <span className="font-medium bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                Principal Engineer @ Lennar
+                Principal Software Engineer - Applied AI @ Lennar
               </span>
             </div>
             <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all hover:scale-105 backdrop-blur-sm">
               <Code2 className="h-4 w-4 text-purple-600 dark:text-purple-400 group-hover:animate-bounce" />
               <span className="font-medium bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                Co-Founder @ Based Music
+                Senior Solutions Architect @ AWS (ProServe)
               </span>
             </div>
             <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 backdrop-blur-sm">
@@ -84,8 +84,8 @@ export function Hero() {
               <span className="font-bold bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
                 $36M+ annual revenue uplift
               </span>{" "}
-              at Lennar. Building scalable cloud infrastructure across fintech,
-              insurance, and music tech.
+              at Lennar. Building multi-agent and cloud systems across
+              enterprise AI, fintech, and startup products.
               <span className="block mt-3 text-base text-muted-foreground">
                 7+ years experience • AWS Solutions Architect Professional • New
                 York, NY
