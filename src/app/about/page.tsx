@@ -11,14 +11,14 @@ export const metadata = {
 };
 
 const skills = [
-  "Software Architecture",
-  "AI/ML Solutions",
-  "Cloud Infrastructure (AWS)",
-  "Full-Stack Development",
-  "Microservices",
+  "TypeScript & Python",
+  "LangGraph & MCP",
+  "RAG & Eval Harnesses",
+  "AWS & Azure Cloud",
+  "Next.js & React Native",
+  "Node.js & FastAPI",
   "DevOps & CI/CD",
-  "Team Leadership",
-  "System Design",
+  "Event-Driven Systems",
 ];
 
 const certifications = [
@@ -27,7 +27,11 @@ const certifications = [
     issuer: "Amazon Web Services",
   },
   {
-    title: "Certified Project Manager (CPM)",
+    title: "Professional Scrum Master I",
+    issuer: "Scrum.org",
+  },
+  {
+    title: "PMI Certified PM",
     issuer: "Project Management Institute",
   },
 ];
@@ -68,24 +72,23 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  I'm a Principal Software Engineer at Lennar, where I lead the
-                  architecture and development of AI-driven systems that have
-                  generated over $36M in revenue impact. My work focuses on
-                  building scalable, enterprise-grade solutions that bridge the
-                  gap between cutting-edge technology and real business value.
+                  I recently served as Principal Software Engineer - Applied AI
+                  at Lennar, where I co-led architecture for The Lennar
+                  Machine dynamic AI pricing platform and helped deliver a 1%
+                  pricing uplift (~$36M annualized). I also led a 9-engineer
+                  team building Lennar Connect&apos;s GenAI platform for governed,
+                  enterprise-grade automation.
                 </p>
                 <p>
-                  As Co-Founder of Based Music, I'm building the future of local
-                  music discovery through AI-powered recommendations and
-                  real-time features. Our platform has grown to 10,000+ users,
-                  demonstrating my ability to take products from concept to
-                  market success.
+                  Before Lennar, I was a Senior Solutions Architect at AWS
+                  ProServe, contributing to AI investigation systems at Amazon
+                  scale and leading enterprise programs from discovery to
+                  production.
                 </p>
                 <p>
-                  With 7+ years of experience across Fortune 500 companies and
-                  startups, I specialize in cloud architecture, microservices,
-                  AI/ML systems, and leading cross-functional teams to deliver
-                  high-impact technical initiatives.
+                  I&apos;m also Co-Founder at Lasaria, where I deliver production
+                  LLM agents with robust evaluation loops and telemetry across
+                  quality, latency, and cost.
                 </p>
               </div>
             </section>
@@ -129,17 +132,6 @@ export default function AboutPage() {
                     </div>
                   </div>
                 ))}
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5">
-                  <Award className="w-5 h-5 text-primary mt-1" />
-                  <div>
-                    <div className="font-semibold">
-                      Excellence in Tech Innovation Award
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      City National Bank, 2023
-                    </div>
-                  </div>
-                </div>
               </div>
             </section>
 
@@ -185,5 +177,4 @@ export default function AboutPage() {
     </>
   );
 }
-
 
