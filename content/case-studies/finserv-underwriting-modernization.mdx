@@ -1,0 +1,365 @@
+---
+title: "Financial Services Underwriting Modernization"
+role: ["Senior Solutions Architect (ProServe)", "Technical Lead"]
+timeline: "Jul 2021 - Oct 2024"
+stack:
+  [
+    "AWS",
+    "Step Functions",
+    "ECS",
+    "SQS",
+    "Node.js",
+    "Python",
+    "Terraform",
+    "New Relic",
+  ]
+summary: "Led an AWS ProServe engagement to re-architect a major bank's mortgage underwriting platform with resilient event orchestration, multi-signal autoscaling, and disciplined observability, shrinking credit decision latency while satisfying regulatory scrutiny."
+outcomes:
+  - "Stage-level App->Initial UW median ~11->~5 business days (~-55%) on clean files; p90 19->9; p99 outliers down ~60% (Q2-Q3 2023)"
+  - "Step Functions recovery: >=99% of stranded workflows within 15 min during quarterly game-days; p95 <= 15 min; p99 <= 30 min"
+  - "Compensating SLI contained poison-pill impact: DLQ ingress share <= 0.3%, redrive success >99.8%, redrive age p95 <= 5 min (6-week window)"
+  - "30-day DORA: >=3 deploys/day weekday cadence; median lead time ~10-12 h; CFR <= 9.6%; MTTR ~27 m"
+context: "A major financial services client's underwriting operations were bound to a monolithic workflow engine that stalled during bursty loan demand. Manual recovery procedures regularly stretched into multi-day efforts, and the audit backlog increased whenever remediation work bypassed formal controls."
+decisions:
+  - "Modeled underwriting stages as Step Functions express workflows with zoned failure policies"
+  - "Implemented compensating SLI/alerting for SQS redrive queues to catch poison-pill cascades"
+  - "Established multi-signal ECS auto-scaling gates aligned to burn-rate SLOs"
+  - "Introduced cache-aware HTTP revalidation for partner underwriting APIs"
+  - "Published 30-day DORA scorecards for engineering and risk stakeholders"
+artifacts: []
+links: null
+whatIdDoNext:
+  - "Extend underwriting observability to machine learning explainability artifacts"
+  - "Automate regulatory evidence packaging for quarterly audits"
+  - "Pilot proactive credit risk simulations using synthetic workloads"
+featured: false
+order: 3
+category: "Systems"
+image: "/images/aws-finserv-banner.png"
+---
+
+> **Scope**: Stage-level **App->Initial Underwriting (UW) decision** only (excludes appraisal, title, escrow).
+> **Cohort (clean files)**: AUS-accept, documents complete at submission, no appraisal/title holds.
+> **Windows**: Unless noted, Q2-Q3 2023 pilot for stage metrics; 30-day view for DORA.
+
+## The Challenge
+
+A major financial services client's legacy underwriting suite serialized every stage of mortgage approval. SLA breaches were frequent because throughput declined during end-of-month surges, and stranded workflows required human intervention that lasted multiple shifts. Error handling was opaque, audit trails were fragmented, and the change calendar limited how quickly new controls could be shipped.
+
+As the AWS Senior Solutions Architect leading this ProServe engagement, I was responsible for defining the target architecture, guiding the client engineering team through implementation, and ensuring every decision satisfied both operational and regulatory requirements.
+
+## The Solution
+
+I led an incremental migration that reframed underwriting as event-driven choreography while protecting production stability and regulator trust.
+
+### Modernization Program Timeline
+
+<AnimatedTimeline
+  milestones={[
+    {
+      phase: "Stabilize & Observe",
+      date: "Q3 2021",
+      title: "Benchmarked legacy bottlenecks",
+      description:
+        "Instrumented the monolith and traced the highest-risk failure modes while aligning auditors on safety guardrails.",
+      achievements: [
+        "Built live dashboards covering 18 underwriting paths and SLA drift",
+        "Mapped manual runbooks into an automation backlog prioritized by regulatory impact",
+      ],
+    },
+    {
+      phase: "Modularize Workflows",
+      date: "Q1 2022",
+      title: "Piloted event-driven Step Functions",
+      description:
+        "Split intake, bureau sync, appraisal, and compliance into isolated express state machines behind safe traffic mirroring.",
+      achievements: [
+        "Delivered a dual-run slice handling 30% of nightly loan volume in four weeks",
+        "Validated zoned failure policies against regulator-reviewed incident scenarios",
+      ],
+    },
+    {
+      phase: "Automate Recovery",
+      date: "Q4 2022",
+      title: "Productized rollback and replay patterns",
+      description:
+        "Codified compensating SLIs, automated roll-forward handlers, and replayable audits before sunsetting the monolith.",
+      achievements: [
+        "Neutralized poison-pill loans automatically with sub-5-minute quarantine cycles",
+        "Cut stranded workflows from 60 per week to zero during production cutover",
+      ],
+    },
+    {
+      phase: "Scale & Govern",
+      date: "2023 - 2024",
+      title: "Scaled with multi-signal guardrails",
+      description:
+        "Raised deployment frequency while keeping regulator trust through DORA reporting and burn-rate gated scaling.",
+      achievements: [
+        "Weekday deploy cadence at three-plus releases with change failure rate held at or below 9.6% for 12 months",
+        "Automated quarterly audit evidence packaging delivered no material migration findings",
+      ],
+    },
+  ]}
+/>
+
+### Underwriting-Stage Metrics
+
+<InteractiveMetrics
+  metrics={[
+    {
+      label: "Intake Validation p95",
+      value: "140s",
+      change: "down 35%",
+      description:
+        "Document and schema checks stabilized with asynchronous retries and staged rollouts (Q2-Q3 2023 clean-file view).",
+    },
+    {
+      label: "Credit Bureau Timeout Rate",
+      value: "0.4%",
+      change: "down 60%",
+      description:
+        "Multiattempt bureau sync with circuit breakers trimmed daily timeout incidents (Q2-Q3 2023 clean-file view).",
+    },
+    {
+      label: "Collateral Pre-score SLA",
+      value: "under 45 min",
+      change: "down 50%",
+      description:
+        "Internal collateral pre-screen kept pre-appraisal checks sub-hour on clean files (Q2-Q3 2023 window).",
+    },
+    {
+      label: "Compliance Rule Latency",
+      value: "8s",
+      change: "down 70%",
+      description:
+        "Deterministic rules engine shipped with queue back-pressure telemetry (rolling 6-week operational window).",
+    },
+    {
+      label: "Scorecard Adoption",
+      value: "Daily",
+      change: "up",
+      description:
+        "Operations leadership consumed standardized underwriting scorecards each morning (daily instrumentation window).",
+    },
+  ]}
+/>
+
+Each underwriting stage now exposes a standardized telemetry envelope:
+
+- **Intake validation**: median processing time under 90 seconds, p95 under 140 seconds, success rate at 99.3%.
+- **Credit bureau sync**: automated retries capped at three loops with observed timeout frequency under 0.4% per day.
+- **Collateral pre-score**: internal pre-screen median SLA under 45 minutes driven by asynchronous document scoring.
+- **Compliance checks**: rule evaluation latency under 8 seconds with backlog depth visible in Grafana heatmaps.
+
+A shared metrics schema landed in New Relic and fed a daily underwriting scorecard for operations leadership.
+
+<Callout type="info">
+  "Collateral pre-score" refers to the internal pre-screening workflow prior to any vendor-managed appraisal steps.
+</Callout>
+
+### Step Functions Recovery Configuration
+
+We decomposed the monolith into Step Functions express workflows partitioned by underwriting stage. Each state machine defined:
+
+1. **Zonal failure policies** that shifted workloads to warm standby clusters when burn-rate SLOs signaled risk.
+2. **Automated roll-forward handlers** that re-queued idempotent tasks with exponential delay, keeping manual restarts under 2 per week.
+3. **Replayable audit events** persisted to DynamoDB with idempotency keys so recovery preserved evidence chains.
+
+During quarterly game-day exercises, this configuration recovered **>=99%** of stranded workflows **within 15 minutes** (p95 &lt;= 15 minutes; p99 &lt;= 30 minutes).
+
+#### Replay Harness Excerpt
+
+```typescript
+export async function replayExecution({
+  executionArn,
+  messageId,
+}: {
+  executionArn: string;
+  messageId: string;
+}) {
+  const history = await stepFunctions
+    .getExecutionHistory({ executionArn })
+    .promise();
+  const payload = extractPayload(history, messageId);
+
+  await stepFunctions
+    .startExecution({
+      stateMachineArn: process.env.REPLAY_STATE_MACHINE_ARN!,
+      name: `replay-${messageId}`,
+      input: JSON.stringify({
+        payload,
+        idempotencyKey: messageId,
+      }),
+    })
+    .promise();
+}
+```
+
+The replay runbook pairs this harness with DynamoDB idempotency keys so every retry preserves control evidence.
+
+### Event-Driven Orchestration Blueprint
+
+<MermaidDiagram
+  chart={`graph TD
+    Intake[Intake Validation API]
+    StepIntake[Step Functions Intake Stage]
+    QueueIntake[SQS Intake Queue]
+    ECSIntake[ECS Intake Workers]
+    StepBureau[Step Functions Credit Bureau Stage]
+    QueueBureau[SQS Bureau Queue]
+    ECSBureau[ECS Bureau Workers]
+    StepAppraisal[Step Functions Appraisal Stage]
+    Decision[Underwriting Decision API]
+    Audit[DynamoDB Audit Evidence]
+    Observability[New Relic + Grafana Telemetry]
+    AutoScale[Burn-rate Auto Scaling Gate]
+    Quarantine[Poison Pill Quarantine Lambda]
+
+    Intake --> StepIntake
+    StepIntake --> QueueIntake
+    QueueIntake --> ECSIntake
+    ECSIntake --> StepBureau
+    StepBureau --> QueueBureau
+    QueueBureau --> ECSBureau
+    ECSBureau --> StepAppraisal
+    StepAppraisal --> Decision
+
+    StepIntake --> Observability
+    StepBureau --> Observability
+    StepAppraisal --> Observability
+
+    Observability --> AutoScale
+    AutoScale --> ECSIntake
+    AutoScale --> ECSBureau
+
+    StepAppraisal --> Audit
+    QueueBureau --> Quarantine
+    Quarantine --> StepBureau
+  `}
+/>
+
+### SQS Poison-Pill Compensating SLI
+
+Poison-pill messages previously created cascading failures. We established a compensating SLI that tracked:
+
+- DLQ ingress share &lt;= 0.3% with redrive age p95 &lt;= 5 minutes; alerts triggered on sustained breach across 10-minute (fast) and 1-hour (slow) windows.
+- Time-to-neutralize, enforced to stay under 5 minutes through automated quarantining lambdas (rolling 6-week window).
+- Duplicate delivery ratio, held under 0.2% with idempotent consumers (rolling 6-week window).
+
+The SLI backed an on-call runbook that coupled automated quarantining with manual review gates for high-risk loan classes.
+
+### Multi-Signal ECS Auto-Scaling with Burn-Rate Gates
+
+Auto-scaling moved beyond CPU thresholds. We combined:
+
+1. **Request concurrency** sourced from ALB target tracking.
+2. **Message age** pulled from SQS metrics.
+3. **Error budget burn-rate** computed from Stage-level SLOs.
+
+Horizontal scaling executed only when multiwindow burn-rate stayed below 1.5 across fast (10-minute) and slow (1-hour) lookbacks with hysteresis, preventing thrash during transient partner outages while keeping recovery within the 30-minute objective.
+
+#### Burn-Rate Alert Rule (excerpt)
+
+```yaml
+name: underwriting-burn-rate-fast
+metric: error_budget_burn_rate
+period: 5m
+evaluation_periods: 2
+threshold: 1.5
+comparison: greater
+alarm_actions:
+  - sns: underwriting-oncall
+ok_actions:
+  - sns: underwriting-oncall
+datapoints_to_alarm: 2
+```
+
+The fast alarm pairs with a 1-hour lookback twin so on-call received balanced signal without scaling flap.
+
+### Platform Control Surfaces
+
+<InteractiveArchitecture
+  services={[
+    {
+      id: "intake",
+      name: "Intake and Validation Mesh",
+      description:
+        "API Gateway, Lambda, and Step Functions stages validate borrower payloads, documents, and bureau handshakes before orchestration.",
+      tech: ["API Gateway", "Lambda", "Step Functions", "SQS"],
+      metrics: [
+        { label: "p95 Latency", value: "140s" },
+        { label: "Success Rate", value: "99.3%" },
+        { label: "Nightly Volume", value: "12K loans" },
+        { label: "Rollback Incidents", value: "under 2/wk" },
+      ],
+    },
+    {
+      id: "orchestration",
+      name: "Express Workflow Fabric",
+      description:
+        "Partitioned Step Functions with zoned failure policies, replayable audits, and automated roll-forward handlers.",
+      tech: ["Step Functions", "DynamoDB", "SQS", "Lambda"],
+      metrics: [
+        { label: "Recovery Time", value: "p95 <= 15 min" },
+        { label: "Replay Success", value: "99.8%" },
+        { label: "Audit Drift", value: "no material findings" },
+        { label: "Game Days", value: "Quarterly" },
+      ],
+    },
+    {
+      id: "autoscaling",
+      name: "Multi-Signal Scaling Gate",
+      description:
+        "Combines concurrency, queue age, and burn-rate telemetry to authorize ECS capacity changes only when safe.",
+      tech: ["ECS", "CloudWatch", "Lambda", "Terraform"],
+      metrics: [
+        { label: "Burn-rate Threshold", value: "under 1.5" },
+        { label: "Scale Decisions", value: "2/hr peak" },
+        { label: "Thrash Events", value: "0" },
+        { label: "SLO Coverage", value: "4 stages" },
+      ],
+    },
+    {
+      id: "observability",
+      name: "Underwriting Scorecard",
+      description:
+        "Unified telemetry pipeline feeds New Relic, Grafana heatmaps, and daily DORA scorecards for leadership and risk.",
+      tech: ["New Relic", "Grafana", "Looker", "Terraform"],
+      metrics: [
+        { label: "Reporting Cadence", value: "Daily" },
+        { label: "Distribution", value: "Ops + Risk" },
+        { label: "Deployment Frequency", value: "3+/day" },
+        { label: "Change Failure Rate", value: "<= 9.6%" },
+      ],
+    },
+  ]}
+/>
+
+<Callout type="info">
+  Select any capability above to dig into the stack, metrics, and operating
+  posture that kept regulators and underwriting aligned.
+</Callout>
+
+### HTTP Revalidation Strategy
+
+Partner underwriting APIs enforced strict rate caps. We introduced an HTTP revalidation strategy featuring:
+
+- Conditional GETs with ETag validators and `Cache-Control: must-revalidate` on decisional reads, keeping partner call volume within contractual maxima via 304 responses.
+- Explicit stale-while-revalidate allowances (`stale-while-revalidate=600`) only on non-decisional status reads, labeled in ops tooling.
+- Circuit breakers that degraded gracefully to cached responses whenever upstream p95 latency exceeded the 1.2-second limit.
+
+### 30-Day DORA View
+
+We published a rolling 30-day DORA scorecard via Looker:
+
+- **Deployment frequency**: >=3/day on weekdays (30-day view).
+- **Lead time for changes**: median ~10-12 hours from merge to production.
+- **Change failure rate**: &lt;= 9.6% while meeting control evidence requirements.
+- **Mean time to recovery**: ~27 minutes thanks to Step Functions roll-forward automation.
+
+The scorecard satisfied both engineering retrospectives and the operational risk committee's reporting cadence.
+
+### Audit Outcome
+
+The bank's internal audit team reviewed the migration artifacts, runbooks, and control evidence. Their closing report stated there were **no material findings related to the migration**, validating that the technical modernization met regulatory expectations without exception.
