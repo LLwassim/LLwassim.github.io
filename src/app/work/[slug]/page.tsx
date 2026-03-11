@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { ArrowLeft, ExternalLink, Github, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import { useMDXComponent } from "next-contentlayer2/hooks";
 import mdxComponents from "@/components/mdx-components";
 
 export async function generateStaticParams() {
